@@ -28,8 +28,8 @@ class IndexPage extends Component
     {
         $isDeleteId = $this->isDeleteId;
         $product = Product::findOrFail($isDeleteId);
-        if ($product->orderProduct->count() > 0) {
-            session()->flash('warning', 'You can not delete product. This product has been already existed in orders');
+        if ($product->orderProducts->count() > 0 || $product->carts->count() > 0) {
+            session()->flash('warning', 'You can not delete product. This product has been already existed in orders or carts');
             $this->dispatchBrowserEvent('hidden-modal');
         } else {
             $productOldImages = $product->productImages()->get();
