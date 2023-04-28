@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Order;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,6 +26,9 @@ class IndexPage extends Component
         $id = $this->isDeleteId;
         $order = Order::findOrFail($id);
         $order->delete();
+        $orderProducts = OrderProduct::orderBy('created_at', 'desc')
+            ->where('orderId', $id)->get();
+        $orderProducts->each->delete();
         session()->flash('success', 'Delete order successfully.');
         $this->dispatchBrowserEvent('hidden-modal');
     }
