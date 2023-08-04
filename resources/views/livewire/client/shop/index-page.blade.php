@@ -40,9 +40,11 @@
                                     @if ($product->productImages->count() > 0)
                                     <a class="d-block"
                                         href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                        <img src="{{$product->productImages[0]->productImage}}" alt=""
+                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->image
+                                        : 'client/assets/images/default.png' }}" alt="{{ $product->name }}"
                                             class="product-image-1 w-100">
-                                        <img src="{{$product->productImages[1]->productImage}}" alt=""
+                                        <img src="{{ isset($product->productImages[1]) ? $product->productImages[0]->image
+                                        : 'client/assets/images/default.png' }}" alt="{{ $product->name }}"
                                             class="product-image-2 position-absolute w-100">
                                     </a>
                                     @else

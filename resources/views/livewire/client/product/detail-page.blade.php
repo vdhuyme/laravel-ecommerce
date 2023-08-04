@@ -24,8 +24,6 @@
             </div>
         </div>
     </div>
-    <!-- Breadcrumb Area End Here -->
-    <!-- Single Product Main Area Start -->
     <div class="single-product-main-area">
         <div class="container container-default custom-area">
             <div class="row">
@@ -39,22 +37,13 @@
                                     "swipe": false,
                                     "asNavFor": ".pd-slider-nav"
                                     }'>
-
-                            @if ($productImages->count() > 0)
                             @foreach ($productImages as $productImage)
                             <div class="single-image border">
-                                <a href="{{$productImage->productImage}}">
-                                    <img src="{{$productImage->productImage}}" alt="Product">
+                                <a href="{{ isset($productImage) ? $productImage->productImage : 'client/assets/images/default.png' }}">
+                                    <img src="{{ isset($productImage) ? $productImage->productImage : 'client/assets/images/default.png' }}" alt="Product">
                                 </a>
                             </div>
                             @endforeach
-                            @else
-                            <div class="single-image border">
-                                <a href="client/assets/images/default.png">
-                                    <img src="client/assets/images/default.png" alt="Product">
-                                </a>
-                            </div>
-                            @endif
                         </div>
                         <div class="pd-slider-nav product-slider" data-slick-options='{
                                     "slidesToShow": 4,
@@ -69,17 +58,11 @@
                                         {"breakpoint":992, "settings": {"slidesToShow": 4}},
                                         {"breakpoint":575, "settings": {"slidesToShow": 3}}
                                     ]'>
-                            @if ($productImages->count() > 0)
                             @foreach ($productImages as $productImage)
                             <div class="single-thumb border">
-                                <img src="{{$productImage->productImage}}" alt="Product Thumnail">
+                                <img src="{{ isset($productImage) ? $productImage->productImage : 'client/assets/images/default.png' }}" alt="Product Thumnail">
                             </div>
                             @endforeach
-                            @else
-                            <div class="single-thumb border">
-                                <img src="client/assets/images/default.png" alt="Product Thumnail">
-                            </div>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -134,7 +117,6 @@
             </div>
         </div>
     </div>
-    <!-- Single Product Main Area End -->
 </div>
 
 <livewire:client.product.random-product>

@@ -36,22 +36,13 @@
                     <div class="single-item">
                         <div class="single-product position-relative">
                             <div class="product-image">
-                                @if ($product->productImages->count() > 0)
                                 <a class="d-block"
-                                    href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                    <img src="{{$product->productImages[0]->productImage}}" alt=""
-                                        class="product-image-1 w-100">
-                                    <img src="{{$product->productImages[1]->productImage}}" alt=""
-                                        class="product-image-2 position-absolute w-100">
+                                   href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
+                                    <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->image
+                                        : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
+                                    <img class="second-img" src="{{ isset($product->productImages[1]) ? $product->productImages[1]->image
+                                            : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
                                 </a>
-                                @else
-                                <a class="d-block"
-                                    href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                    <img src="client/assets/images/default.png" alt="" class="product-image-1 w-100">
-                                    <img src="client/assets/images/default.png" alt=""
-                                        class="product-image-2 position-absolute w-100">
-                                </a>
-                                @endif
                             </div>
                             <div class="product-content">
                                 <div class="product-title">
