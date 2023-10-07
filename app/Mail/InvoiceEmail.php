@@ -8,9 +8,11 @@ use Illuminate\Queue\SerializesModels;
 
 class InvoiceEmail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public $order, $orderProducts;
+    public $order;
+    public $orderProducts;
 
     public function __construct($order, $orderProducts)
     {

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->string('metaDescription')->nullable();
             $table->string('metaKey')->nullable();
             $table->string('metaTitle')->nullable();
-            $table->integer('userId');            
+            $table->integer('userId');
             $table->enum('featuredArticle', ['yes', 'no'])->default('no');
 
             $table->timestamps();

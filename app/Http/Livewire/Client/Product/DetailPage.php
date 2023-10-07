@@ -9,8 +9,11 @@ use Livewire\Component;
 
 class DetailPage extends Component
 {
-    public $productName, $description, $metaTitle,
-        $metaDescription, $metaKey;
+    public $productName;
+    public $description;
+    public $metaTitle;
+    public $metaDescription;
+    public $metaKey;
     public $originalPrice;
     public $sellingPrice;
     public $stock;

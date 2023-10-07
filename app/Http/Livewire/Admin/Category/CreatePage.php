@@ -11,8 +11,13 @@ use Livewire\WithFileUploads;
 class CreatePage extends Component
 {
     use WithFileUploads;
-    public $categoryName, $categorySlug, $categoryImage,
-        $metaDescription, $metaKey, $metaTitle, $featuredCategory;
+    public $categoryName;
+    public $categorySlug;
+    public $categoryImage;
+    public $metaDescription;
+    public $metaKey;
+    public $metaTitle;
+    public $featuredCategory;
 
     protected $rules = [
         'categoryName' => 'required|max:255',

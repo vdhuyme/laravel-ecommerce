@@ -13,8 +13,14 @@ class IndexPage extends Component
     public $searchTerm;
     public $perPage = 10;
     public $isEditId;
-    public $firstName, $lastName, $gender, $phoneNumber,
-        $userStatus, $roles, $email, $addresses = [];
+    public $firstName;
+    public $lastName;
+    public $gender;
+    public $phoneNumber;
+    public $userStatus;
+    public $roles;
+    public $email;
+    public $addresses = [];
 
     protected $rules = [
         'roles' => 'in:customer,admin',
@@ -45,7 +51,7 @@ class IndexPage extends Component
         $this->validate();
         $isEditId = $this->isEditId;
         $user = User::findOrFail($isEditId);
-        
+
         if ($user->isRoot === 1) {
             $this->reset();
             session()->flash('warning', 'This is root account, so you can not update.');

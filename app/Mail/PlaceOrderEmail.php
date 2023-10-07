@@ -8,8 +8,9 @@ use Illuminate\Queue\SerializesModels;
 
 class PlaceOrderEmail extends Mailable
 {
-    use Queueable, SerializesModels;
-    
+    use Queueable;
+    use SerializesModels;
+
     public function build()
     {
         $subject = "Thank for your order";

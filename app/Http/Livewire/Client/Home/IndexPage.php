@@ -2,10 +2,6 @@
 
 namespace App\Http\Livewire\Client\Home;
 
-use App\Models\Article;
-use App\Models\Banner;
-use App\Models\Category;
-use App\Models\Product;
 use Livewire\Component;
 
 class IndexPage extends Component

@@ -19,18 +19,15 @@
         <div class="container container-default custom-area">
             <div class="row flex-row-reverse">
                 <div class="col-lg-9 col-12 col-custom widget-mt">
-                    <!--shop toolbar start-->
                     <div class="shop_toolbar_wrapper">
                         <div class="shop_toolbar_btn">
                             <button data-role="grid_3" type="button" class="active btn-grid-3" data-bs-toggle="tooltip"
                                 title="3"><i class="fa fa-th"></i></button>
-                            <!-- <button data-role="grid_4" type="button"  class=" btn-grid-4" data-bs-toggle="tooltip" title="4"></button> -->
                             <button data-role="grid_list" type="button" class="btn-list" data-bs-toggle="tooltip"
                                 title="List"><i class="fa fa-th-list"></i></button>
                         </div>
                     </div>
-                    <!--shop toolbar end-->
-                    <!-- Shop Wrapper Start -->
+
                     <div class="row shop_wrapper grid_3">
                         @if ($products->count() >0 )
                         @foreach ($products as $product)
@@ -39,17 +36,14 @@
                                 <div class="product-image">
                                     @if ($product->productImages->count() > 0)
                                     <a class="d-block"
-                                        href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->image
+                                        href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
+                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->productImage
                                         : 'client/assets/images/default.png' }}" alt="{{ $product->name }}"
                                             class="product-image-1 w-100">
-                                        <img src="{{ isset($product->productImages[1]) ? $product->productImages[0]->image
-                                        : 'client/assets/images/default.png' }}" alt="{{ $product->name }}"
-                                            class="product-image-2 position-absolute w-100">
                                     </a>
                                     @else
                                     <a class="d-block"
-                                        href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
+                                        href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
                                         <img src="client/assets/images/default.png" alt=""
                                             class="product-image-1 w-100">
                                         <img src="client/assets/images/default.png" alt=""
@@ -60,7 +54,7 @@
                                 <div class="product-content">
                                     <div class="product-title">
                                         <h4 class="title-2"> <a
-                                                href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">{{$product->productName}}</a>
+                                                href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{ $product->productName }}</a>
                                         </h4>
                                     </div>
                                     <div class="price-box">
@@ -73,17 +67,17 @@
                                 <div class="product-content-listview">
                                     <div class="product-title">
                                         <h4 class="title-2"> <a
-                                                href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">{{$product->productName}}</a>
+                                                href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{ $product->productName }}</a>
                                         </h4>
                                     </div>
                                     <div class="price-box">
-                                        <span class="regular-price ">{{number_format($product->sellingPrice, 0, '.',
-                                            '.')}} VNĐ</span>
-                                        <span class="old-price"><del>{{number_format($product->originalPrice, 0,
-                                                '.', '.')}} VNĐ</del></span>
+                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.',
+                                            '.') }} VNĐ</span>
+                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0,
+                                                '.', '.') }} VNĐ</del></span>
                                     </div>
                                     <p class="desc-content">
-                                        {{$product->description}}
+                                        {{ $product->description }}
                                     </p>
                                 </div>
                             </div>
@@ -99,11 +93,9 @@
                         </div>
                         @endif
                     </div>
-                    <!-- Shop Wrapper End -->
 
-                    {{$products->onEachSide(1)->links('client.components.pagination')}}
+                    {{ $products->onEachSide(1)->links('client.components.pagination') }}
 
-                    <!-- Bottom Toolbar End -->
                 </div>
                 <div class="col-lg-3 col-12 col-custom">
                     <!-- Sidebar Widget Start -->
@@ -129,7 +121,7 @@
                                             <input class="form-check-input" type="checkbox" wire:model="filterTerm"
                                                 value="{{$category->id}}" id="{{$category->categoryName}}">
                                             <label class="form-check-label" for="{{$category->categoryName}}">
-                                                {{$category->categoryName}} ({{$category->products->count()}})
+                                                {{ $category->categoryName }} ({{ $category->products->count() }})
                                             </label>
                                         </li>
                                         @endforeach
@@ -170,7 +162,6 @@
                             </div>
                         </div>
                     </aside>
-                    <!-- Sidebar Widget End -->
                 </div>
             </div>
         </div>

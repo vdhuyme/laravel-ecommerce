@@ -40,16 +40,14 @@
                                 <div class="product-image">
                                     <a class="d-block"
                                         href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->image
+                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->productImage
                                         : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
-                                        <img class="second-img" src="{{ isset($product->productImages[1]) ? $product->productImages[1]->image
-                                            : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
                                     </a>
                                 </div>
                                 <div class="product-content">
                                     <div class="product-title">
                                         <h4 class="title-2"> <a
-                                                href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">{{$product->productName}}</a>
+                                                href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{$product->productName}}</a>
                                         </h4>
                                     </div>
                                     <div class="price-box">

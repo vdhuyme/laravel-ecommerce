@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class MiniCart extends Component
 {
-    public $count, $total, $cartProducts;
+    public $count;
+    public $total;
+    public $cartProducts;
 
     protected $listeners = [
         'update' => 'checkCount',

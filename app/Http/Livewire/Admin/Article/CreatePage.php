@@ -13,8 +13,15 @@ class CreatePage extends Component
 {
     use WithFileUploads;
 
-    public $articleTitle, $articleSlug, $articleContent, $articleImage,
-        $featuredArticle, $shortContent, $metaDescription, $metaKey, $metaTitle;
+    public $articleTitle;
+    public $articleSlug;
+    public $articleContent;
+    public $articleImage;
+    public $featuredArticle;
+    public $shortContent;
+    public $metaDescription;
+    public $metaKey;
+    public $metaTitle;
 
     protected $rules = [
         'articleTitle' => 'required|max:255',

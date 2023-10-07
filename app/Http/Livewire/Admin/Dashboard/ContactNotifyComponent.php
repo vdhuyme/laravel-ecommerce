@@ -7,7 +7,8 @@ use Livewire\Component;
 
 class ContactNotifyComponent extends Component
 {
-    public $contacts, $limitContacts;
+    public $contacts;
+    public $limitContacts;
 
     public function mount()
     {

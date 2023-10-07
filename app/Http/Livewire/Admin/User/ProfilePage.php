@@ -8,9 +8,14 @@ use Livewire\Component;
 
 class ProfilePage extends Component
 {
-    public $firstName, $lastName, $email,
-        $phoneNumber, $createdAt;
-    public $currentPassword, $newPassword, $confirmPassword;
+    public $firstName;
+    public $lastName;
+    public $email;
+    public $phoneNumber;
+    public $createdAt;
+    public $currentPassword;
+    public $newPassword;
+    public $confirmPassword;
 
     protected $rules = [
         'firstName' => 'required',

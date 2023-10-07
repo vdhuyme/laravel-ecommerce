@@ -13,7 +13,7 @@ class CountComponent extends Component
     {
         $this->count = Order::where('status', 'pending')->count();
     }
-    
+
     public function render()
     {
         return view('livewire.admin.order.count-component');

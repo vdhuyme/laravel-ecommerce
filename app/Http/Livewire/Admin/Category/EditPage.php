@@ -13,8 +13,13 @@ class EditPage extends Component
 {
     use WithFileUploads;
 
-    public $categoryName, $categorySlug, $categoryImage,
-        $metaDescription, $metaKey, $metaTitle, $featuredCategory;
+    public $categoryName;
+    public $categorySlug;
+    public $categoryImage;
+    public $metaDescription;
+    public $metaKey;
+    public $metaTitle;
+    public $featuredCategory;
 
     public $newCategoryImage;
     public $showOldImage;

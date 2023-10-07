@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,9 +12,14 @@ use Livewire\WithFileUploads;
 class CreatePage extends Component
 {
     use WithFileUploads;
-    public $productName, $description, $productStatus,
-        $featuredProduct, $productSlug, $metaTitle,
-        $metaDescription, $metaKey;
+    public $productName;
+    public $description;
+    public $productStatus;
+    public $featuredProduct;
+    public $productSlug;
+    public $metaTitle;
+    public $metaDescription;
+    public $metaKey;
     public $originalPrice;
     public $sellingPrice;
     public $stock;
@@ -68,18 +72,6 @@ class CreatePage extends Component
     public function generateSlug()
     {
         $this->productSlug = Str::slug($this->productName);
-    }
-
-    public function cleanupOldUploads()
-    {
-        $storage = Storage::disk('local');
-
-        foreach ($storage->allFiles('livewire-tmp') as $filePathname) {
-            $yesterdaysStamp = now()->subDay()->timestamp;
-            if ($yesterdaysStamp > $storage->lastModified($filePathname)) {
-                $storage->delete($filePathname);
-            }
-        }
     }
 
     public function render()

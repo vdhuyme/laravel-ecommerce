@@ -13,8 +13,15 @@ class EditPage extends Component
 {
     use WithFileUploads;
 
-    public $articleTitle, $articleSlug, $articleContent, $articleImage,
-        $featuredArticle, $shortContent, $metaDescription, $metaKey, $metaTitle;
+    public $articleTitle;
+    public $articleSlug;
+    public $articleContent;
+    public $articleImage;
+    public $featuredArticle;
+    public $shortContent;
+    public $metaDescription;
+    public $metaKey;
+    public $metaTitle;
 
     public $newArticleImage;
     public $showOldImage;
@@ -30,7 +37,7 @@ class EditPage extends Component
         'metaKey' => 'max:255',
         'metaTitle' => 'max:255',
     ];
-    
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);

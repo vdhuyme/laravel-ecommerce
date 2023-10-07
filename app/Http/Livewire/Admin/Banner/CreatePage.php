@@ -11,7 +11,10 @@ class CreatePage extends Component
 {
     use WithFileUploads;
 
-    public $bannerImage, $bannerTitle, $bannerSubTitle, $bannerStatus;
+    public $bannerImage;
+    public $bannerTitle;
+    public $bannerSubTitle;
+    public $bannerStatus;
 
     protected $rules = [
         'bannerImage' => 'required|image',

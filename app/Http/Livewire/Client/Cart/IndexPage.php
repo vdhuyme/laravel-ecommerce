@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class IndexPage extends Component
 {
-    public $count, $total, $cartProducts;
+    public $count;
+    public $total;
+    public $cartProducts;
     public $quantity;
 
     protected $listeners = [

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin\Dashboard;
 
 use App\Models\Order;
-use App\Models\OrderProduct;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;

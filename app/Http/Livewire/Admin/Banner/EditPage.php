@@ -12,14 +12,17 @@ class EditPage extends Component
 {
     use WithFileUploads;
 
-    public $bannerImage, $bannerTitle, $bannerSubTitle, $bannerStatus;
+    public $bannerImage;
+    public $bannerTitle;
+    public $bannerSubTitle;
+    public $bannerStatus;
     public $newBannerImage;
     public $showOldImage;
     public $isEditId;
 
     protected $rules = [
         'bannerTitle' => 'required',
-        'bannerSubTitle' => 'required',        
+        'bannerSubTitle' => 'required',
         'bannerStatus' => 'required|in:show,hide',
     ];
 

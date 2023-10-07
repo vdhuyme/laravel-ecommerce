@@ -17,10 +17,18 @@ class MyAccount extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $firstName, $lastName, $email,
-        $phoneNumber, $gender;
-    public $currentPassword, $newPassword, $confirmPassword;
-    public $userNames, $phoneNumbers, $emails, $houseNumbers;
+    public $firstName;
+    public $lastName;
+    public $email;
+    public $phoneNumber;
+    public $gender;
+    public $currentPassword;
+    public $newPassword;
+    public $confirmPassword;
+    public $userNames;
+    public $phoneNumbers;
+    public $emails;
+    public $houseNumbers;
     public $provinceId;
     public $districts = [];
     public $districtId;

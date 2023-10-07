@@ -9,7 +9,10 @@ use Livewire\Component;
 
 class IndexPage extends Component
 {
-    public $fullName, $email, $subject, $message;
+    public $fullName;
+    public $email;
+    public $subject;
+    public $message;
 
     protected $rules = [
         'fullName' => 'required',
