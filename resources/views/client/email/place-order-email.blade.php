@@ -63,7 +63,6 @@
 
 <body>
     <div class="container">
-
         <table width="100%">
             <tr>
                 <td width="300px">
@@ -85,7 +84,7 @@
         </div>
 
         <div class="socialmedia">Follow us online <small>www.vfruits.com</small></div>
-    </div><!-- container -->
+    </div>
 </body>
 
 </html>

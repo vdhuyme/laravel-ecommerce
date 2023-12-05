@@ -9,7 +9,9 @@ use Livewire\Component;
 class MiniCart extends Component
 {
     public $count;
+
     public $total;
+
     public $cartProducts;
 
     protected $listeners = [

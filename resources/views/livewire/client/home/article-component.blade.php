@@ -34,29 +34,29 @@
                     }
                     ]'>
                         @foreach ($featuredArticles as $article)
-                        <div class="single-blog">
-                            <div class="single-blog-thumb">
-                                <a
-                                    href="{{route('articleDetail', ['id' => $article->id, 'slug' => $article->articleSlug])}}">
-                                    <img src="{{$article->articleImage}}" alt="Blog Image">
-                                </a>
-                            </div>
-                            <div class="single-blog-content position-relative">
-                                <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                    <span>{{$article->created_at->format('d')}}</span>
-                                    <span>{{$article->created_at->format('m')}}</span>
-                                </div>
-                                <div class="post-meta">
-                                    <span class="author">Viết bởi: {{$article->user->roles}}</span>
-                                </div>
-                                <h2 class="post-title">
+                            <div class="single-blog">
+                                <div class="single-blog-thumb">
                                     <a
-                                        href="{{route('articleDetail', ['id' => $article->id, 'slug' => $article->articleSlug])}}">{{substr($article->articleTitle,
-                                        0, 30)}}</a>
-                                </h2>
-                                <p class="desc-content">{{substr($article->shortContent, 0, 30)}}...</p>
+                                            href="{{ route('articleDetail', ['id' => $article->id, 'slug' => $article->articleSlug]) }}">
+                                        <img src="{{ $article->articleImage }}" alt="Blog Image">
+                                    </a>
+                                </div>
+                                <div class="single-blog-content position-relative">
+                                    <div class="post-date text-center border rounded d-flex flex-column position-absolute">
+                                        <span>{{ $article->created_at->format('d') }}</span>
+                                        <span>{{ $article->created_at->format('m') }}</span>
+                                    </div>
+                                    <div class="post-meta">
+                                        <span class="author">Viết bởi: {{$article->user->roles}}</span>
+                                    </div>
+                                    <h2 class="post-title">
+                                        <a
+                                                href="{{ route('articleDetail', ['id' => $article->id, 'slug' => $article->articleSlug])}}">
+                                            {{ substr($article->articleTitle, 0, 30) }}</a>
+                                    </h2>
+                                    <p class="desc-content">{{ substr($article->shortContent, 0, 30) }}...</p>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>

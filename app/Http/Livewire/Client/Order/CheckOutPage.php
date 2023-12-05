@@ -15,13 +15,21 @@ use Livewire\Component;
 class CheckOutPage extends Component
 {
     public $shippingAddresses;
+
     public $note;
+
     public $shippingAddressId;
+
     public $paymentMode;
+
     public $paymentId = null;
+
     public $cartProducts;
+
     public $count;
+
     public $total;
+
     public $totalCurrencyExchange;
 
     protected $listeners = [

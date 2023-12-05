@@ -29,26 +29,23 @@
                     </div>
 
                     <div class="row shop_wrapper grid_3">
-                        @if ($products->count() >0 )
+                        @if ($products->count())
                         @foreach ($products as $product)
                         <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
                             <div class="single-product position-relative">
                                 <div class="product-image">
-                                    @if ($product->productImages->count() > 0)
-                                    <a class="d-block"
-                                        href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
-                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->productImage
-                                        : 'client/assets/images/default.png' }}" alt="{{ $product->name }}"
-                                            class="product-image-1 w-100">
-                                    </a>
+                                    @if ($product->productImages->count())
+                                        <a class="d-block"
+                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
+                                            <img src="{{ asset($product->productImages[0]->productImage) }}" alt="{{ $product->name }}"
+                                                 class="product-image-1 w-100">
+                                        </a>
                                     @else
-                                    <a class="d-block"
-                                        href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
-                                        <img src="client/assets/images/default.png" alt=""
-                                            class="product-image-1 w-100">
-                                        <img src="client/assets/images/default.png" alt=""
-                                            class="product-image-2 position-absolute w-100">
-                                    </a>
+                                        <a class="d-block"
+                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
+                                            <img src="{{ asset('client/assets/images/default.png') }}"
+                                                 class="product-image-1 w-100">
+                                        </a>
                                     @endif
                                 </div>
                                 <div class="product-content">
@@ -58,10 +55,8 @@
                                         </h4>
                                     </div>
                                     <div class="price-box">
-                                        <span class="regular-price ">{{number_format($product->sellingPrice, 0, '.',
-                                            '.')}} VNĐ</span>
-                                        <span class="old-price"><del>{{number_format($product->originalPrice, 0,
-                                                '.', '.')}} VNĐ</del></span>
+                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.', '.') }} VNĐ</span>
+                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0, '.', '.') }} VNĐ</del></span>
                                     </div>
                                 </div>
                                 <div class="product-content-listview">
@@ -71,10 +66,8 @@
                                         </h4>
                                     </div>
                                     <div class="price-box">
-                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.',
-                                            '.') }} VNĐ</span>
-                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0,
-                                                '.', '.') }} VNĐ</del></span>
+                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.', '.') }} VNĐ</span>
+                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0, '.', '.') }} VNĐ</del></span>
                                     </div>
                                     <p class="desc-content">
                                         {{ $product->description }}
@@ -95,10 +88,8 @@
                     </div>
 
                     {{ $products->onEachSide(1)->links('client.components.pagination') }}
-
                 </div>
                 <div class="col-lg-3 col-12 col-custom">
-                    <!-- Sidebar Widget Start -->
                     <aside class="sidebar_widget widget-mt">
                         <div class="widget_inner">
                             <div class="widget-list widget-mb-1">
@@ -116,17 +107,17 @@
                                 <div class="sidebar-body">
                                     <ul class="sidebar-list">
                                         @if ($categories->count()>0)
-                                        @foreach ($categories as $category)
-                                        <li>
-                                            <input class="form-check-input" type="checkbox" wire:model="filterTerm"
-                                                value="{{$category->id}}" id="{{$category->categoryName}}">
-                                            <label class="form-check-label" for="{{$category->categoryName}}">
-                                                {{ $category->categoryName }} ({{ $category->products->count() }})
-                                            </label>
-                                        </li>
-                                        @endforeach
+                                            @foreach ($categories as $category)
+                                            <li>
+                                                <input class="form-check-input" type="checkbox" wire:model="filterTerm"
+                                                    value="{{$category->id}}" id="{{$category->categoryName}}">
+                                                <label class="form-check-label" for="{{$category->categoryName}}">
+                                                    {{ $category->categoryName }} ({{ $category->products->count() }})
+                                                </label>
+                                            </li>
+                                            @endforeach
                                         @else
-                                        <li>Không có danh mục nào</li>
+                                            <li>Không có danh mục nào</li>
                                         @endif
                                     </ul>
                                 </div>

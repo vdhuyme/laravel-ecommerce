@@ -8,11 +8,17 @@ use Livewire\Component;
 class IndexPage extends Component
 {
     public $perPage = 10;
+
     public $isDeleteId;
+
     public $fullName;
+
     public $email;
+
     public $subject;
+
     public $message;
+
     public $searchTerm;
 
     public function marked($id)

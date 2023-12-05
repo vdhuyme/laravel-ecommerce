@@ -9,12 +9,19 @@ use Livewire\Component;
 class ProfilePage extends Component
 {
     public $firstName;
+
     public $lastName;
+
     public $email;
+
     public $phoneNumber;
+
     public $createdAt;
+
     public $currentPassword;
+
     public $newPassword;
+
     public $confirmPassword;
 
     protected $rules = [

@@ -1,7 +1,7 @@
 <span class="badge rounded-pill text-bg-danger">
     @if ($count > 99)
-    99+
+        99+
     @else
-    {{$count}}
+        {{ $count }}
     @endif
 </span>

@@ -12,18 +12,31 @@ use Livewire\WithFileUploads;
 class CreatePage extends Component
 {
     use WithFileUploads;
+
     public $productName;
+
     public $description;
+
     public $productStatus;
+
     public $featuredProduct;
+
     public $productSlug;
+
     public $metaTitle;
+
     public $metaDescription;
+
     public $metaKey;
+
     public $originalPrice;
+
     public $sellingPrice;
+
     public $stock;
+
     public $productImages = [];
+
     public $categoryId;
 
     protected $rules = [

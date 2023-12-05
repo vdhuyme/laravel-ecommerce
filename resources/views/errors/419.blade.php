@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>419</title>
-    <link rel="stylesheet" href="errors/styles.css">
+    <link rel="stylesheet" href="{{ asset('errors/styles.css') }}">
 </head>
 
 <body>
@@ -26,8 +26,8 @@
         <div class="error__title">419</div>
         <div class="error__subtitle">Hmmm...</div>
         <div class="error__description">It seems that there are some issues of information please refresh again</div>
-        <button class="error__button error__button--active"><a href="{{route('/')}}">HOME PAGE</a></button>
-        <button class="error__button"><a href="{{route('contactUs')}}">CONTACT</a></button>
+        <button class="error__button error__button--active"><a href="{{ route('/') }}">HOME PAGE</a></button>
+        <button class="error__button"><a href="{{ route('contactUs') }}">CONTACT</a></button>
     </div>
 
     <div class="astronaut">
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <script src="errors/main.js"></script>
+    <script src="{{ asset('errors/main.js') }}"></script>
 </body>
 
 </html>

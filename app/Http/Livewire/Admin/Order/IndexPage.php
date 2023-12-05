@@ -10,9 +10,13 @@ use Livewire\WithPagination;
 class IndexPage extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
+
     public $perPage = 10;
+
     public $isDeleteId;
+
     public $searchTerm;
 
     public function deleteOrder($id)

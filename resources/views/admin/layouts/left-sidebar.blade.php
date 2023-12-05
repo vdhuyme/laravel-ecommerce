@@ -66,27 +66,6 @@
                         <i class="bx bx-mail-send"></i> <span>Contacts <livewire:admin.contact.count-component></span>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link collapsed" href="#sidebarLanding" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false">
-                        <i class="bx bx-location-plus"></i> <span>Shipping</span>
-                    </a>
-                    <div class="menu-dropdown collapse" id="sidebarLanding" style="">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('provinces')}}" class="nav-link">Provinces</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('districts')}}" class="nav-link">Districts
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('wards')}}" class="nav-link">Wards</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
             </ul>
         </div>
         <!-- Sidebar -->

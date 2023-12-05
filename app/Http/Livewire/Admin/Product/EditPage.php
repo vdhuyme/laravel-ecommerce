@@ -14,21 +14,37 @@ use Illuminate\Support\Str;
 class EditPage extends Component
 {
     use WithFileUploads;
+
     public $productName;
+
     public $description;
+
     public $productStatus;
+
     public $featuredProduct;
+
     public $productSlug;
+
     public $metaTitle;
+
     public $metaDescription;
+
     public $metaKey;
+
     public $originalPrice;
+
     public $sellingPrice;
+
     public $stock;
+
     public $productOldImages = [];
+
     public $productNewImages = [];
+
     public $categoryId;
+
     public $isEditId;
+
     public $isDeleteId;
 
     protected $listeners = [

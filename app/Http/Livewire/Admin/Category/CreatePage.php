@@ -12,11 +12,17 @@ class CreatePage extends Component
 {
     use WithFileUploads;
     public $categoryName;
+
     public $categorySlug;
+
     public $categoryImage;
+
     public $metaDescription;
+
     public $metaKey;
+
     public $metaTitle;
+
     public $featuredCategory;
 
     protected $rules = [

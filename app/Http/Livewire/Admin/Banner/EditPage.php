@@ -13,11 +13,17 @@ class EditPage extends Component
     use WithFileUploads;
 
     public $bannerImage;
+
     public $bannerTitle;
+
     public $bannerSubTitle;
+
     public $bannerStatus;
+
     public $newBannerImage;
+
     public $showOldImage;
+
     public $isEditId;
 
     protected $rules = [

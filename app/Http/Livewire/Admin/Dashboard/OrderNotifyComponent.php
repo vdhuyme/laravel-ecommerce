@@ -8,6 +8,7 @@ use Livewire\Component;
 class OrderNotifyComponent extends Component
 {
     public $orders;
+
     public $limitOrders;
 
     public function mount()

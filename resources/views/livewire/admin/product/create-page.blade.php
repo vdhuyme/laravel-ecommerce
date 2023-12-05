@@ -1,6 +1,5 @@
 <div class="page-content">
     <div class="container-fluid">
-        <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -14,14 +13,12 @@
                 </div>
             </div>
         </div>
-        <!-- end page title -->
 
         <form wire:submit.prevent="storeProduct" wire:ignore.self>
             <div class="row">
                 <div class="col-xxl-6">
                     <div class="card">
                         <div class="card-body">
-                            <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
                                 <li class="nav-item">
                                     <a wire:ignore class="nav-link active" data-bs-toggle="tab" href="#element"
@@ -41,7 +38,6 @@
                                 </li>
                             </ul>
 
-                            <!-- Tab panes -->
                             <div class="tab-content text-muted">
                                 <div wire:ignore.self class="tab-pane active" id="element" role="tabpanel">
                                     <div class="d-flex">
@@ -109,7 +105,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- end card body -->
                                             </div>
 
                                             <div class="card">
@@ -213,11 +208,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!-- end card -->
                                         </div>
                                     </div>
                                 </div>
+
                                 <div wire:ignore.self class="tab-pane" id="image" role="tabpanel">
                                     <div class="d-flex">
                                         <div class="flex-grow-1 ms-2">
@@ -258,7 +252,6 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1 ms-2">
                                             <div class="card">
-                                                <!-- end card header -->
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -275,7 +268,6 @@
                                                                     }}</span>
                                                                 @enderror
                                                             </div>
-                                                            <!-- end col -->
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="mb-3 form-label">
@@ -292,9 +284,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <!-- end col -->
                                                     </div>
-                                                    <!-- end row -->
 
                                                     <div class="form-label">
                                                         <label class="form-label" for="meta-description-input">Meta
@@ -320,11 +310,10 @@
                                     <button type="submit" class="btn btn-primary w-sm">Submit</button>
                                 </div>
                             </div>
-                        </div><!-- end card-body -->
-                    </div><!-- end card -->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- end row -->
         </form>
     </div>
 </div>

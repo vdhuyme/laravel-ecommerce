@@ -5,9 +5,9 @@
         <i class='bx bx-bell fs-22'></i>
         <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
             @if($orders->count() > 99)
-            99+
+                99+
             @else
-            {{$orders->count()}}
+                {{ $orders->count() }}
             @endif</span>
     </button>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
@@ -22,9 +22,9 @@
                     <div class="col-auto dropdown-tabs">
                         <span class="badge badge-soft-light fs-13">
                             @if ($orders->count() > 99)
-                            99+
+                                99+
                             @else
-                            {{$orders->count()}}
+                              {{ $orders->count() }}
                             @endif New</span>
                     </div>
                 </div>
@@ -44,13 +44,13 @@
                             </div>
                             <div class="flex-1">
                                 <a href="{{ route('edit-order', ['id'=>$order->id]) }}" class="stretched-link">
-                                    <h6 class="mt-0 mb-2 lh-base">{{$order->user->firstName}} {{$order->user->lastName}}
+                                    <h6 class="mt-0 mb-2 lh-base">{{ $order->user->firstName }} {{ $order->user->lastName }}
                                         has just created an order!
                                     </h6>
                                 </a>
                                 <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
                                     <span><i class="mdi mdi-clock-outline"></i>
-                                        {{$order->created_at->diffForHumans()}}</span>
+                                        {{ $order->created_at->diffForHumans() }}</span>
                                 </p>
                             </div>
                         </div>
@@ -58,11 +58,10 @@
                     @endforeach
 
                     <div class="my-3 text-center view-all">
-                        <a href="{{route('orders')}}" class="btn btn-soft-success waves-effect waves-light">View
+                        <a href="{{ route('orders') }}" class="btn btn-soft-success waves-effect waves-light">View
                             All Orders <i class="ri-arrow-right-line align-middle"></i></a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

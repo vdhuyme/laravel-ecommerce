@@ -10,10 +10,15 @@ use Livewire\WithPagination;
 class IndexPage extends Component
 {
     use WithPagination;
+
     public $perPage = 6;
+
     protected $paginationTheme = 'bootstrap';
+
     public $searchTerm;
+
     public $filterTerm = [];
+
     public $sortTerm;
 
     public function render()

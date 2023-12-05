@@ -1,4 +1,3 @@
-<!-- Footer Area Start Here -->
 <footer class="footer-area">
     <div class="footer-widget-area">
         <div class="container container-default custom-area">
@@ -7,7 +6,7 @@
                     <div class="single-footer-widget m-0">
                         <div class="footer-logo">
                             <a href="/">
-                                <img src="client/assets/images/logo/footer.png" alt="Logo Image">
+                                <img src="{{ asset('client/assets/images/logo/footer.png') }}" alt="Logo Image">
                             </a>
                         </div>
                         <p class="desc-content">Công Ty Cổ Phần Thương Mại Vie Fruits.</p>
@@ -55,4 +54,3 @@
         </div>
     </div>
 </footer>
-<!-- Footer Area End Here -->

@@ -1,4 +1,3 @@
-<!-- Product Area Start Here -->
 <div class="product-area mb-no-text mt-text">
     <div class="container container-default custom-area">
         <div class="row">
@@ -33,32 +32,36 @@
                         }}
                         ]'>
                     @foreach ($randomProducts as $product)
-                    <div class="single-item">
-                        <div class="single-product position-relative">
-                            <div class="product-image">
-                                <a class="d-block"
-                                   href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                    <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->image
-                                        : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
-                                    <img class="second-img" src="{{ isset($product->productImages[1]) ? $product->productImages[1]->image
-                                            : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
-                                </a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title">
-                                    <h4 class="title-2"> <a
-                                            href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">{{$product->productName}}</a>
-                                    </h4>
+                        <div class="single-item">
+                            <div class="single-product position-relative">
+                                <div class="product-image">
+                                    @if ($product->productImages->count())
+                                        <a class="d-block"
+                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
+                                            <img src="{{ asset($product->productImages[0]->productImage) }}" alt="{{ $product->name }}"
+                                                 class="product-image-1 w-100">
+                                        </a>
+                                    @else
+                                        <a class="d-block"
+                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
+                                            <img src="{{ asset('client/assets/images/default.png') }}"
+                                                 class="product-image-1 w-100">
+                                        </a>
+                                    @endif
                                 </div>
-                                <div class="price-box">
-                                    <span class="regular-price ">{{number_format($product->sellingPrice, 0, '.',
-                                        '.')}} VNĐ</span>
-                                    <span class="old-price"><del>{{number_format($product->originalPrice, 0,
-                                            '.', '.')}} VNĐ</del></span>
+                                <div class="product-content">
+                                    <div class="product-title">
+                                        <h4 class="title-2"> <a
+                                                    href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{ $product->productName }}</a>
+                                        </h4>
+                                    </div>
+                                    <div class="price-box">
+                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.', '.') }} VNĐ</span>
+                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0, '.', '.') }} VNĐ</del></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>

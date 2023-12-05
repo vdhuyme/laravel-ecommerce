@@ -14,13 +14,13 @@
             </div>
             <div class="row">
                 @foreach ($categories as $category)
-                <div class="col-md-4 col-sm-12 col-custom">
-                    <div class="banner-image hover-style">
-                        <a class="d-block" href="{{route('listOfProducts')}}">
-                            <img class="w-100" src="{{$category->categoryImage}}" alt="Category Image">
-                        </a>
+                    <div class="col-md-4 col-sm-12 col-custom">
+                        <div class="banner-image hover-style">
+                            <a class="d-block" href="{{ route('listOfProducts') }}">
+                                <img class="w-100" src="{{ $category->categoryImage }}" alt="Category Image">
+                            </a>
+                        </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>

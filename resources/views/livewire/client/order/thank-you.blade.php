@@ -1,5 +1,4 @@
 <div>
-    <!-- Breadcrumb Area Start Here -->
     <div class="breadcrumbs-area position-relative">
         <div class="container">
             <div class="row">
@@ -15,8 +14,7 @@
             </div>
         </div>
     </div>
-    <!-- Breadcrumb Area End Here -->
-    <!-- Error 404 Area Start Here -->
+
     <div class="error-area">
         <div class="container">
             <div class="row">
@@ -24,11 +22,10 @@
                     <div class="error_form">
                         <h1>VFruits</h1>
                         <h2>Cảm ơn bạn đã sử dụng dịch vụ chúng tôi</h2>
-                        <a href="{{route('listOfProducts')}}">Tiếp tục mua sắm</a>
+                        <a href="{{ route('listOfProducts') }}">Tiếp tục mua sắm</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Error 404 Area End Here -->
 </div>

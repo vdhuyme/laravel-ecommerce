@@ -11,8 +11,11 @@ class IndexPage extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+
     public $perPage = 20;
+
     public $isDeleteId;
+
     public $totalEarnings;
 
     public function deleteOrder($id)

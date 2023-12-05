@@ -10,15 +10,25 @@ class IndexPage extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+
     public $searchTerm;
+
     public $perPage = 10;
+
     public $isEditId;
+
     public $firstName;
+
     public $lastName;
+
     public $gender;
+
     public $phoneNumber;
+
     public $userStatus;
+
     public $roles;
+
     public $email;
     public $addresses = [];
 

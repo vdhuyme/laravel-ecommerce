@@ -1,5 +1,4 @@
 <div>
-    <!-- Breadcrumb Area Start Here -->
     <div class="breadcrumbs-area position-relative">
         <div class="container">
             <div class="row">
@@ -15,8 +14,7 @@
             </div>
         </div>
     </div>
-    <!-- Breadcrumb Area End Here -->
-    <!-- Contact Us Area Start Here -->
+
     <div class="contact-us-area">
         <div class="container container-default-2 custom-area">
             <div class="row">
@@ -125,4 +123,3 @@
         </div>
     </div>
 </div>
-<!-- Contact Us Area End Here -->

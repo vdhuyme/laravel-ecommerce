@@ -13,9 +13,6 @@ use App\Http\Livewire\Admin\Dashboard\IndexPage as AdminIndexPage;
 use App\Http\Livewire\Admin\Product\EditPage as ProductEditPage;
 use App\Http\Livewire\Admin\Product\CreatePage as ProductCreatePage;
 use App\Http\Livewire\Admin\Product\IndexPage as ProductIndexPage;
-use App\Http\Livewire\Admin\Province\IndexPage as ProvinceIndexPage;
-use App\Http\Livewire\Admin\District\IndexPage as DistrictIndexPage;
-use App\Http\Livewire\Admin\Ward\IndexPage as WardIndexPage;
 use App\Http\Livewire\Admin\User\IndexPage as UserIndexPage;
 use App\Http\Livewire\Admin\User\ProfilePage;
 use App\Http\Livewire\Admin\Contact\IndexPage as ContactIndexPage;
@@ -57,10 +54,6 @@ Route::group(['prefix' => '/', 'middleware' => ['admin', 'verified', 'password.c
     Route::get('products', ProductIndexPage::class)->name('products');
     Route::get('create-product', ProductCreatePage::class)->name('create-product');
     Route::get('edit-product/{id}', ProductEditPage::class)->name('edit-product');
-
-    Route::get('provinces', ProvinceIndexPage::class)->name('provinces');
-    Route::get('districts', DistrictIndexPage::class)->name('districts');
-    Route::get('wards', WardIndexPage::class)->name('wards');
 
     Route::get('orders', OrderIndexPage::class)->name('orders');
     Route::get('edit-order/{id}', OrderEditPage::class)->name('edit-order');

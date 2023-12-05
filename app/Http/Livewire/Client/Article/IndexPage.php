@@ -8,6 +8,7 @@ use Livewire\Component;
 class IndexPage extends Component
 {
     public $totalRecords;
+
     public $loadAmount = 6;
 
     public function loadMore()

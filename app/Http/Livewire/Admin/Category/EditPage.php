@@ -14,15 +14,23 @@ class EditPage extends Component
     use WithFileUploads;
 
     public $categoryName;
+
     public $categorySlug;
+
     public $categoryImage;
+
     public $metaDescription;
+
     public $metaKey;
+
     public $metaTitle;
+
     public $featuredCategory;
 
     public $newCategoryImage;
+
     public $showOldImage;
+
     public $isEditId;
 
     protected $rules = [

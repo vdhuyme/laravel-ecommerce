@@ -139,8 +139,8 @@
                             </td>
                             <td>
                                 <strong>To</strong><br>
-                                {{$order->userName}}<br>
-                                {{$order->shippingAddress}}<br>
+                                {{ $order->userName }}<br>
+                                {{ $order->shippingAddress }}<br>
                             </td>
                         </tr>
                     </table>
@@ -159,14 +159,11 @@
             </tr>
             @foreach ($orderProducts as $key => $product)
             <tr>
-                <td class="row">{{$key+1}}</td>
-                <td class="row">{{$product->products->productName}}</td>
-                <td class="row">{{number_format($product->purchasePrice, 0, '.',
-                    '.')}} VNĐ </td>
-                <td class="row">{{$product->quantity}}</td>
-                <td class="row">{{number_format($product->purchasePrice*$product->quantity, 0,
-                    '.',
-                    '.')}} VNĐ</td>
+                <td class="row">{{ $key+1 }}</td>
+                <td class="row">{{ $product->products->productName }}</td>
+                <td class="row">{{ number_format($product->purchasePrice, 0, '.', '.') }} VNĐ </td>
+                <td class="row">{{ $product->quantity }}</td>
+                <td class="row">{{ number_format($product->purchasePrice*$product->quantity, 0, '.', '.') }} VNĐ</td>
             </tr>
             @endforeach
         </table><br>
@@ -176,8 +173,7 @@
                     <table width="300px" style="float:right">
                         <tr>
                             <td><strong>Sub-total:</strong></td>
-                            <td style="text-align:right">{{number_format($order->total-35000, 0, '.',
-                                '.')}} VNĐ</td>
+                            <td style="text-align:right">{{ number_format($order->total-35000, 0, '.', '.') }} VNĐ</td>
                         </tr>
                         <tr>
                             <td><strong>Shipping fee:</strong></td>
@@ -185,14 +181,12 @@
                         </tr>
                         <tr>
                             <td><strong>Grand total:</strong></td>
-                            <td style="text-align:right">{{number_format($order->total, 0, '.',
-                                '.')}} VNĐ</td>
+                            <td style="text-align:right">{{ number_format($order->total, 0, '.', '.') }} VNĐ</td>
                         </tr>
                         @if ($order->paymentMode === "paypal")
                         <tr>
                             <td><strong>Payment With Paypal:</strong></td>
-                            <td style="text-align:right">${{number_format(($order->total)/23000, 2, '.',
-                                '')}}</td>
+                            <td style="text-align:right">${{ number_format(($order->total)/23000, 2, '.', '')}}</td>
                         </tr>
                         @endif
                     </table>
@@ -207,7 +201,7 @@
             @endif
             <div class="socialmedia">Follow us online <small>www.vfruits.com</small></div>
         </div>
-    </div><!-- container -->
+    </div>
 </body>
 
 </html>

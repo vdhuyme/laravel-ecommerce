@@ -12,19 +12,33 @@ use Livewire\Component;
 class EditPage extends Component
 {
     public $isEditId;
+
     public $note;
+
     public $userId;
+
     public $trackingNumber;
+
     public $status;
+
     public $paymentMode;
+
     public $paymentId;
+
     public $created_at;
+
     public $updated_at;
+
     public $userName;
+
     public $userEmail;
+
     public $phoneNumber;
+
     public $shippingAddress;
+
     public $total;
+
     public $orderProducts;
 
     protected $rules = [

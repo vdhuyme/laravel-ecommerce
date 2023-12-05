@@ -1,20 +1,18 @@
 <div class="page-content">
     <div class="container-fluid">
-        <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">Categories</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{route('categories')}}">Categories</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('categories') }}">Categories</a></li>
                             <li class="breadcrumb-item active">Categories of list</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end page title -->
 
         @include('admin.components.alerts')
 
@@ -25,7 +23,7 @@
                         <div class="col-sm-auto">
                             <div>
                                 <a href="{{route('create-category')}}" class="btn btn-primary"><i
-                                        class="ri-add-line align-bottom me-1"></i> Add
+                                            class="ri-add-line align-bottom me-1"></i> Add
                                     Categoy</a>
                             </div>
                         </div>
@@ -33,7 +31,7 @@
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
                                     <input wire:model="searchTerm" type="text" class="form-control"
-                                        id="searchProductList" placeholder="Search categories...">
+                                           id="searchProductList" placeholder="Search categories...">
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
                             </div>
@@ -45,67 +43,66 @@
                     <div class="table-responsive">
                         <table class="table table-bordered align-middle table-nowrap mb-0">
                             <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Category Name</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Created at</th>
-                                    <th scope="col">Updated at</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Created at</th>
+                                <th scope="col">Updated at</th>
+                                <th scope="col">Actions</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if ($categories->count() >0)
+                            @if ($categories->count() >0)
                                 @foreach ($categories as $category)
-                                <tr>
-                                    <td class="fw-medium">{{$category->id}}</td>
-                                    <td>{{$category->categoryName}}</td>
-                                    <td><img src="{{$category->categoryImage}}" alt="" class="rounded avatar-xs"></td>
-                                    <td>{{$category->created_at->format('d/m/Y')}}</td>
-                                    <td>{{$category->updated_at->format('d/m/Y')}}</td>
-                                    <td>
-                                        <div class="hstack gap-3 fs-15">
-                                            <a href="{{ route('edit-category', ['id'=>$category->id]) }}"
-                                                class="link-warning"><i class="ri-edit-2-line"></i></a>
-                                            <a wire:click="deleteCategory({{ $category->id }})" class=" link-danger"
-                                                style="cursor: pointer"><i class="ri-delete-bin-2-line"
-                                                    data-bs-toggle="modal" data-bs-target=".deleteModal"
-                                                    data-bs-backdrop="static"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="fw-medium">{{ $category->id }}</td>
+                                        <td>{{ $category->categoryName }}</td>
+                                        <td><img src="{{ $category->categoryImage }}" alt="" class="rounded avatar-xs"></td>
+                                        <td>{{ $category->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $category->updated_at->format('d/m/Y') }}</td>
+                                        <td>
+                                            <div class="hstack gap-3 fs-15">
+                                                <a href="{{ route('edit-category', ['id'=>$category->id]) }}"
+                                                   class="link-warning"><i class="ri-edit-2-line"></i></a>
+                                                <a wire:click="deleteCategory({{ $category->id }})" class=" link-danger"
+                                                   style="cursor: pointer"><i class="ri-delete-bin-2-line"
+                                                                              data-bs-toggle="modal" data-bs-target=".deleteModal"
+                                                                              data-bs-backdrop="static"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
-                                @else
+                            @else
                                 <tr>
                                     <th class="text-center" colspan="10">Do not have value</th>
                                 </tr>
-                                @endif
+                            @endif
                             </tbody>
                         </table>
                     </div>
-                </div><!-- end card-body -->
+                </div>
 
                 <div class="card-body">
-                    {{$categories->onEachSide(1)->links()}}
+                    {{ $categories->onEachSide(1)->links() }}
                 </div>
-            </div><!-- end card -->
-        </div><!-- end col -->
+            </div>
+        </div>
     </div>
 
-    <!-- Delete Modal -->
     <div wire:ignore.self class="modal fade zoomIn deleteModal" id="deleteModal" tabindex="-1"
-        aria-labelledby="deleteModalExtra" aria-hidden="true">
+         aria-labelledby="deleteModalExtra" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        id="deleteModalExtra"></button>
+                            id="deleteModalExtra"></button>
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="destroyCategory">
                         <div class="mt-2 text-center">
                             <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                                colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                       colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                                 <h4>Are you sure ?</h4>
                                 <p class="text-muted mx-4 mb-0">Are you sure you want to remove this category ?</p>
@@ -118,16 +115,15 @@
                         </div>
                     </form>
                 </div>
-
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 </div>
 
 @section('scripts')
-<script>
-    window.addEventListener('hidden-modal', event =>{
+    <script>
+        window.addEventListener('hidden-modal', event => {
             $('#deleteModal').modal('hide');
         });
-</script>
+    </script>
 @endsection

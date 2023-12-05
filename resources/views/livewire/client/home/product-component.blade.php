@@ -35,30 +35,30 @@
                     }}
                     ]'>
                         @foreach ($featuredProducts as $product)
-                        <div class="single-item">
-                            <div class="single-product position-relative">
-                                <div class="product-image">
-                                    <a class="d-block"
-                                        href="{{route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug])}}">
-                                        <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->productImage
-                                        : 'client/assets/images/default.png' }}" alt="{{ $product->productName }}">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-title">
-                                        <h4 class="title-2"> <a
-                                                href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{$product->productName}}</a>
-                                        </h4>
+                            <div class="single-item">
+                                <div class="single-product position-relative">
+                                    <div class="product-image">
+                                        <a class="d-block"
+                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
+                                            <img src="{{ isset($product->productImages[0]) ? $product->productImages[0]->productImage
+                                        : asset('client/assets/images/default.png') }}" alt="{{ $product->productName }}">
+                                        </a>
                                     </div>
-                                    <div class="price-box">
-                                        <span class="regular-price ">{{number_format($product->sellingPrice, 0, '.',
-                                            '.')}} VNĐ</span>
-                                        <span class="old-price"><del>{{number_format($product->originalPrice, 0,
-                                                '.', '.')}} VNĐ</del></span>
+                                    <div class="product-content">
+                                        <div class="product-title">
+                                            <h4 class="title-2"> <a href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{$product->productName}}</a>
+                                            </h4>
+                                        </div>
+                                        <div class="price-box">
+                                        <span class="regular-price ">
+                                            {{ number_format($product->sellingPrice, 0, '.', '.') }} VNĐ</span>
+                                            <span class="old-price">
+                                                <del>{{ number_format($product->originalPrice, 0, '.', '.') }} VNĐ</del>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>

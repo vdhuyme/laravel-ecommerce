@@ -10,18 +10,31 @@ use Livewire\Component;
 class DetailPage extends Component
 {
     public $productName;
+
     public $description;
+
     public $metaTitle;
+
     public $metaDescription;
+
     public $metaKey;
+
     public $originalPrice;
+
     public $sellingPrice;
+
     public $stock;
+
     public $productImages = [];
+
     public $category;
+
     public $categoryId;
+
     public $quantity = 1;
+
     public $productId;
+
     public $product;
 
     public function mount($id, $slug)

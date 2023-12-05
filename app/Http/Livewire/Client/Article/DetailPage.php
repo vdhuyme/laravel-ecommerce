@@ -8,10 +8,15 @@ use Livewire\Component;
 class DetailPage extends Component
 {
     public $articleTitle;
+
     public $articleContent;
+
     public $articleImage;
+
     public $metaDescription;
+
     public $metaKey;
+
     public $metaTitle;
 
     public function mount($id, $slug)

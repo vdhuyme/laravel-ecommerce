@@ -18,18 +18,18 @@
             "dots": true
             }}
             ]'>
-    
+
             @foreach ($banners as $banner)
-            <div class="slide-item slide-1 bg-position slide-bg-1 animation-style-01" style="
+                <div class="slide-item slide-1 bg-position slide-bg-1 animation-style-01" style="
             background-image: url('{{$banner->bannerImage}}');">
-                <div class="slider-content">
-                    <h2 class="slider-large-title">{{$banner->bannerTitle}}</h2>
-                    <h4 class="slider-small-title">{{$banner->bannerSubTitle}}</h4>
-                    <div class="slider-btn">
-                        <a class="obrien-button black-btn" href="{{route('listOfProducts')}}">Mua sắm ngay</a>
+                    <div class="slider-content">
+                        <h2 class="slider-large-title">{{ $banner->bannerTitle }}</h2>
+                        <h4 class="slider-small-title">{{ $banner->bannerSubTitle }}</h4>
+                        <div class="slider-btn">
+                            <a class="obrien-button black-btn" href="{{ route('listOfProducts') }}">Mua sắm ngay</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>

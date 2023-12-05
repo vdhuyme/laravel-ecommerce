@@ -14,18 +14,16 @@
                 </div>
             </div>
         </div>
-        <!-- end page title -->
 
         <form wire:submit.prevent="storeCategory">
             <div class="row">
                 <div class="col-xxl-6">
                     <div class="card">
                         <div class="card-body">
-                            <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
                                 <li class="nav-item">
                                     <a wire:ignore class="nav-link active" data-bs-toggle="tab" href="#element"
-                                        role="tab">
+                                       role="tab">
                                         Basic Elements
                                     </a>
                                 </li>
@@ -36,7 +34,6 @@
                                 </li>
                             </ul>
 
-                            <!-- Tab panes -->
                             <div class="tab-content text-muted">
                                 <div wire:ignore.self class="tab-pane active" id="element" role="tabpanel">
                                     <div class="d-flex">
@@ -44,7 +41,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="mb-3 form-label">
-                                                        <div wire:ignore x-data x-init="                            
+                                                        <div wire:ignore x-data x-init="
                                                         FilePond.registerPlugin(FilePondPluginImagePreview);
                                                         FilePond.registerPlugin(FilePondPluginFileValidateType);
                                                         FilePond.registerPlugin(FilePondPluginFileValidateSize);
@@ -54,7 +51,7 @@
                                                             server: {
                                                                 process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
                                                                     @this.upload('categoryImage', file, load, error, progress)
-                                                                    
+
                                                                 },
                                                                 revert: (filename, load) => {
                                                                     @this.removeUpload('categoryImage', filename, load)
@@ -64,7 +61,7 @@
                                                         ">
                                                             <label>Upload An Image</label>
                                                             <input type="file" data-max-file-size="3MB" x-ref="input"
-                                                                wire:model="categoryImage">
+                                                                   wire:model="categoryImage">
                                                         </div>
                                                         @error('categoryImage') <span class="text-danger">{{ $message
                                                             }}</span>
@@ -77,9 +74,9 @@
                                                                 <label class="form-label" for="nameCat">Category
                                                                     Name</label>
                                                                 <input type="text"
-                                                                    class="form-control @error('categoryName') is-invalid @enderror"
-                                                                    id="nameCat" wire:model="categoryName"
-                                                                    placeholder="Enter Name" wire:keyup='generateSlug'>
+                                                                       class="form-control @error('categoryName') is-invalid @enderror"
+                                                                       id="nameCat" wire:model="categoryName"
+                                                                       placeholder="Enter Name" wire:keyup='generateSlug'>
 
                                                                 @error('categoryName') <span class="text-danger">{{
                                                                     $message
@@ -93,9 +90,9 @@
                                                                 <label class="form-label" for="slugCat">Category
                                                                     Slug</label>
                                                                 <input type="text"
-                                                                    class="form-control @error('categorySlug') is-invalid @enderror"
-                                                                    id="slugCat" placeholder="Enter Slug"
-                                                                    wire:model="categorySlug">
+                                                                       class="form-control @error('categorySlug') is-invalid @enderror"
+                                                                       id="slugCat" placeholder="Enter Slug"
+                                                                       wire:model="categorySlug">
 
                                                                 @error('categorySlug') <span class="text-danger">{{
                                                                     $message
@@ -108,10 +105,10 @@
 
                                                             <div class="mb-3 form-label">
                                                                 <label for="choices-publish-status-input"
-                                                                    class="form-label">Status</label>
+                                                                       class="form-label">Status</label>
                                                                 <select
-                                                                    class="form-select @error('featuredCategory') is-invalid @enderror"
-                                                                    wire:model.defer="featuredCategory">
+                                                                        class="form-select @error('featuredCategory') is-invalid @enderror"
+                                                                        wire:model.defer="featuredCategory">
                                                                     <option>Choose a status</option>
                                                                     <option value="no">Normal</option>
                                                                     <option value="yes">Featured</option>
@@ -126,7 +123,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- end card -->
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +130,6 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1 ms-2">
                                             <div class="card">
-                                                <!-- end card header -->
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -142,16 +137,15 @@
                                                                 <label class="form-label" for="meta-title-input">Meta
                                                                     title</label>
                                                                 <input type="text"
-                                                                    class="form-control @error('metaTitle') is-invalid @enderror"
-                                                                    placeholder="Meta title" id="meta-title-input"
-                                                                    wire:model="metaTitle">
+                                                                       class="form-control @error('metaTitle') is-invalid @enderror"
+                                                                       placeholder="Meta title" id="meta-title-input"
+                                                                       wire:model="metaTitle">
 
                                                                 @error('metaTitle') <span class="text-danger">{{
                                                                     $message
                                                                     }}</span>
                                                                 @enderror
                                                             </div>
-                                                            <!-- end col -->
                                                         </div>
 
                                                         <div class="col-sm-6">
@@ -159,25 +153,24 @@
                                                                 <label class="form-label" for="meta-keywords-input">Meta
                                                                     Keywords</label>
                                                                 <input type="text"
-                                                                    class="form-control @error('metaKey') is-invalid @enderror"
-                                                                    placeholder="Meta keywords" id="meta-keywords-input"
-                                                                    wire:model="metaKey">
+                                                                       class="form-control @error('metaKey') is-invalid @enderror"
+                                                                       placeholder="Meta keywords" id="meta-keywords-input"
+                                                                       wire:model="metaKey">
 
                                                                 @error('metaKey') <span class="text-danger">{{ $message
                                                                     }}</span>
                                                                 @enderror
                                                             </div>
-                                                            <!-- end col -->
                                                         </div>
 
                                                         <div class="form-label">
                                                             <label class="form-label" for="meta-description-input">Meta
                                                                 Description</label>
                                                             <textarea rows="7"
-                                                                class="form-control @error('metaDescription') is-invalid @enderror"
-                                                                id="meta-description-input"
-                                                                placeholder="Meta description" rows="2"
-                                                                wire:model="metaDescription"></textarea>
+                                                                      class="form-control @error('metaDescription') is-invalid @enderror"
+                                                                      id="meta-description-input"
+                                                                      placeholder="Meta description" rows="2"
+                                                                      wire:model="metaDescription"></textarea>
 
                                                             @error('metaDescription') <span class="text-danger">{{
                                                                 $message
@@ -186,7 +179,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- end card -->
                                             </div>
                                         </div>
                                     </div>
@@ -198,8 +190,8 @@
                                     <button type="submit" class="btn btn-primary w-sm">Submit</button>
                                 </div>
                             </div>
-                        </div><!-- end card-body -->
-                    </div><!-- end card -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
