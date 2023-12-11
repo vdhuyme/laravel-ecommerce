@@ -16,7 +16,7 @@
 
         <form wire:submit.prevent="updateArticle">
             <div class="row">
-                <div class="col-xxl-6">
+                <div class="col-xxl-12">
                     <div class="card">
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
@@ -45,7 +45,7 @@
                                                         </figcaption>
                                                         <div class="d-flex justify-content-center align-items-center">
                                                             <figure class="figure">
-                                                                <img src="{{ $showOldImage }}"
+                                                                <img src="{{ asset($showOldImage) }}"
                                                                      class="rounded-circle avatar-xl" alt="Old Image">
                                                             </figure>
                                                         </div>

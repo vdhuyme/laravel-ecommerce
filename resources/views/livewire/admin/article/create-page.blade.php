@@ -16,7 +16,7 @@
 
         <form wire:submit.prevent="storeArticle">
             <div class="row">
-                <div class="col-xxl-6">
+                <div class="col-xxl-12">
                     <div class="card">
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">

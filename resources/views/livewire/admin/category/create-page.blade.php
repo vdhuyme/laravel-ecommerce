@@ -1,6 +1,5 @@
 <div class="page-content">
     <div class="container-fluid">
-        <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -17,7 +16,7 @@
 
         <form wire:submit.prevent="storeCategory">
             <div class="row">
-                <div class="col-xxl-6">
+                <div class="col-xxl-12">
                     <div class="card">
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
