@@ -122,64 +122,62 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered align-middle table-nowrap mb-0">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Created At</th>
-                                        <th scope="col">Updated At</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if ($products->count() > 0)
-                                        @foreach ($products as $product)
-                                            <tr>
-                                                <td class="fw-medium">{{$product->id}}</td>
-                                                <td>{{ $product->productName }}</td>
-                                                <td>
-                                                    @if ($product->productImages->count() > 0)
-                                                        @foreach ($product->productImages as $image)<img
-                                                                src="{{ asset($image->productImage) }}" alt="" class="rounded avatar-xs">
-                                                        @endforeach
-                                                    @else
-                                                        Do not have image
-                                                    @endif
-                                                </td>
-                                                <td>{{ $product->created_at->format('d/m/Y') }}</td>
-                                                <td>{{ $product->updated_at->format('d/m/Y') }}</td>
-                                                <td>
-                                                    <div class="hstack gap-3 fs-15">
-                                                        <a href="{{ route('edit-product', ['id'=>$product->id]) }}"
-                                                           class="link-warning"><i class="ri-edit-2-line"></i></a>
-
-                                                        <a wire:click="deleteProduct({{ $product->id }})"
-                                                           class=" link-danger" style="cursor: pointer"><i
-                                                                    class="ri-delete-bin-2-line" data-bs-toggle="modal"
-                                                                    data-bs-target=".deleteModal"
-                                                                    data-bs-backdrop="static"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle table-nowrap mb-0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col">Updated At</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if ($products->count() > 0)
+                                    @foreach ($products as $product)
                                         <tr>
-                                            <th class="text-center" colspan="10">Do not have value</th>
-                                        </tr>
-                                    @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                            <td class="fw-medium">{{$product->id}}</td>
+                                            <td>{{ $product->productName }}</td>
+                                            <td>
+                                                @if ($product->productImages->count() > 0)
+                                                    @foreach ($product->productImages as $image)<img
+                                                            src="{{ asset($image->productImage) }}" alt="" class="rounded avatar-xs">
+                                                    @endforeach
+                                                @else
+                                                    Do not have image
+                                                @endif
+                                            </td>
+                                            <td>{{ $product->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ $product->updated_at->format('d/m/Y') }}</td>
+                                            <td>
+                                                <div class="hstack gap-3 fs-15">
+                                                    <a href="{{ route('edit-product', ['id'=>$product->id]) }}"
+                                                       class="link-warning"><i class="ri-edit-2-line"></i></a>
 
-                        <div class="card-body">
-                            {{ $products->onEachSide(1)->links() }}
+                                                    <a wire:click="deleteProduct({{ $product->id }})"
+                                                       class=" link-danger" style="cursor: pointer"><i
+                                                                class="ri-delete-bin-2-line" data-bs-toggle="modal"
+                                                                data-bs-target=".deleteModal"
+                                                                data-bs-backdrop="static"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <th class="text-center" colspan="10">Do not have value</th>
+                                    </tr>
+                                @endif
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+
+                    <div class="card-body">
+                        {{ $products->onEachSide(1)->links() }}
                     </div>
                 </div>
             </div>
