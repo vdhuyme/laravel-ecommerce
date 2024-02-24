@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;

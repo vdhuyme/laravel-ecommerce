@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Livewire\Admin\Post\CreatePage as ArticleCreatePage;
 use App\Http\Livewire\Admin\Post\EditPage as ArticleEditPage;
 use App\Http\Livewire\Admin\Post\IndexPage as ArticleIndexPage;
@@ -32,6 +33,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
+Route::get('auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
+Route::get('auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/dashboard', AdminIndexPage::class)->name('dashboard');

@@ -16,8 +16,6 @@ class IndexPage extends Component
 
     public string $searchTerm = '';
 
-    public bool $isDeleteId;
-
     public int $perPage = 10;
 
     public function delete(string|int $id): void
@@ -32,11 +30,6 @@ class IndexPage extends Component
         }
 
         $this->alert('error', trans('Không thể xóa thư mục này'));
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
     }
 
     public function render(): View

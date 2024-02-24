@@ -56,7 +56,9 @@
 
                                 <div class="col-lg-12">
                                     <div class="text-center">
-                                        <x-admin.button type="submit" clickMethod="update">{{ __('Cập nhật') }}</x-admin.button>
+                                        <x-admin.button
+                                                type="submit"
+                                                class="btn btn-primary">{{ __('Cập nhật') }}</x-admin.button>
                                     </div>
                                 </div>
                             </div>

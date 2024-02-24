@@ -52,7 +52,9 @@
 
                                 <div class="col-lg-12">
                                     <div class="text-center">
-                                        <x-admin.button type="submit" clickMethod="store">{{ __('Thêm mới') }}</x-admin.button>
+                                        <x-admin.button
+                                                type="submit"
+                                                class="btn btn-primary">{{ __('Thêm mới') }}</x-admin.button>
                                     </div>
                                 </div>
                             </div>
