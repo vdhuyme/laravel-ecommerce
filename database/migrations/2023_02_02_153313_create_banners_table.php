@@ -5,31 +5,19 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-
-            $table->string('bannerImage');
-            $table->string('bannerTitle')->nullable();
-            $table->string('bannerSubTitle')->nullable();
-            $table->enum('bannerStatus', ['show', 'hide'])->default('show');
-
+            $table->string('image');
+            $table->string('title')->nullable();
+            $table->string('subtitle')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('banners');
     }

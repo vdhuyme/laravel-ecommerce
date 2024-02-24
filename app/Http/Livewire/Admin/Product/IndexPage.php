@@ -12,8 +12,6 @@ class IndexPage extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
-
     public $isDeleteId;
 
     public $searchTerm;

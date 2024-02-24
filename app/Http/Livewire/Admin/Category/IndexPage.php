@@ -4,39 +4,34 @@ namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class IndexPage extends Component
 {
     use WithPagination;
-    protected $paginationTheme = 'bootstrap';
+    use LivewireAlert;
 
-    public $searchTerm;
+    public string $searchTerm = '';
 
-    public $isDeleteId;
+    public bool $isDeleteId;
 
-    public $perPage = 10;
+    public int $perPage = 10;
 
-    public function deleteCategory($id)
+    public function delete(string|int $id): void
     {
         $category = Category::findOrFail($id);
-        $this->isDeleteId = $category->id;
-    }
 
-    public function destroyCategory()
-    {
-        $isDeleteId = $this->isDeleteId;
-        $category = Category::findOrFail($isDeleteId);
-        if ($category->products->count() > 0) {
-            session()->flash('danger', 'You can not delete this category.');
-            $this->dispatchBrowserEvent('hidden-modal');
-        } else {
-            File::delete($category->categoryImage);
+        if (!$category->products->count()) {
+            File::delete($category->image);
             $category->delete();
-            session()->flash('success', 'Delete category successfully.');
-            $this->dispatchBrowserEvent('hidden-modal');
+            $this->alert('success', trans('Xóa danh mục thành công'));
+            return;
         }
+
+        $this->alert('error', trans('Không thể xóa thư mục này'));
     }
 
     public function updatingSearch()
@@ -44,15 +39,14 @@ class IndexPage extends Component
         $this->resetPage();
     }
 
-    public function render()
+    public function render(): View
     {
-        $searchTerm = '%' . $this->searchTerm . '%';
+        $categories = Category::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+
         return view('livewire.admin.category.index-page', [
-            'categories' => Category::where('categoryName', 'like', $searchTerm)
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->perPage)
-        ])
-            ->extends('admin.layouts.app')
-            ->section('content');
+            'categories' => $categories
+        ]);
     }
 }

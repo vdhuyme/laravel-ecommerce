@@ -1,44 +1,28 @@
 <?php
 
+use App\Enums\ProductStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-
-            $table->string('productName');
+            $table->string('name');
             $table->text('description');
-            $table->enum('productStatus', ['published', 'unPublished'])->default('unPublished');
-            $table->enum('featuredProduct', ['yes', 'no'])->default('no');
-            $table->string('productSlug');
-            $table->string('metaTitle')->nullable();
-            $table->string('metaDescription')->nullable();
-            $table->string('metaKey')->nullable();
-            $table->string('originalPrice');
-            $table->string('sellingPrice');
-            $table->enum('stock', ['inStock', 'outStock'])->default('instock');
-            $table->integer('categoryId');
-
-
+            $table->string('status', 20)->default(ProductStatus::ACTIVE->name);
+            $table->tinyInteger('is_featured')->default(0);
+            $table->string('slug');
+            $table->double('original_price')->nullable();
+            $table->double('selling_price')->nullable();
+            $table->foreignId('category_id');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('products');
     }

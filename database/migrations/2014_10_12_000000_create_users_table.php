@@ -5,24 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-
-            $table->string('firstName');
-            $table->string('lastName');
-            $table->enum('gender', ['male', 'female'])->default('male');
-            $table->string('phoneNumber');
-            $table->enum('userStatus', ['active', 'inActive'])->default('active');
-            $table->enum('roles', ['admin', 'customer'])->default('customer');
-            $table->boolean('isRoot')->default(0);
-
+            $table->string('first_name', 20);
+            $table->string('last_name', 30);
+            $table->string('phone_number');
+            $table->tinyInteger('status')->default(1);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -31,12 +21,7 @@ return new class () extends Migration {
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }

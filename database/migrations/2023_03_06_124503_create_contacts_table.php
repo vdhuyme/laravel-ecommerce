@@ -5,32 +5,20 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-
-            $table->text('fullName');
-            $table->text('email');
-            $table->text('subject');
-            $table->text('message');
-            $table->boolean('marked')->nullable()->default(0);
-
+            $table->string('name', 50);
+            $table->string('email');
+            $table->string('subject', 120);
+            $table->string('message', 400);
+            $table->tinyInteger('is_resolved')->default(0);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('contacts');
     }
