@@ -121,7 +121,6 @@
                                         model="status"
                                         label="Trạng thái"
                                         :options="['draft' => 'DRAFT', 'active' => 'ACTIVE']" />
-
                             </div>
 
                             <div class="mb-3">

@@ -26,8 +26,8 @@ class CreatePage extends Component
     #[Validate('required|in:active,draft,archived')]
     public string $status = '';
 
-    #[Validate('nullable|in:0,1')]
-    public bool $isFeatured = false;
+    #[Validate('nullable|in:1,0')]
+    public string $isFeatured = '';
 
     #[Validate('nullable|string')]
     public string $slug;
