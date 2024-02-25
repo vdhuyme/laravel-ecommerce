@@ -11,7 +11,7 @@
                 <ol class="breadcrumb m-0">
                     @foreach($breadcrumbs as $breadcrumb)
                         @if($breadcrumb['url'])
-                            <li class="breadcrumb-item"><a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['label'] }}</a></li>
+                            <li class="breadcrumb-item"><x-link :to="$breadcrumb['url']">{{ $breadcrumb['label'] }}</x-link></li>
                         @else
                             <li class="breadcrumb-item active">{{ $breadcrumb['label'] }}</li>
                         @endif

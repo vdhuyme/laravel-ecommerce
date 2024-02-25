@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Admin\Category;
 
+use App\Helpers\GenerateSlug;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;
@@ -22,27 +22,20 @@ class CreatePage extends Component
     #[Validate('nullable|string|min:3|max:120')]
     public string $slug = '';
 
-    #[Validate('nullable|file|max:1024')]
+    #[Validate('required|file|max:1024')]
     public mixed $image = '';
 
     #[Validate('nullable')]
     public bool $isFeatured = false;
 
-    public function generateSlug(string $name): string
-    {
-        return Str::slug($name);
-    }
-
     public function store(): void
     {
         $validatedData = $this->validate();
-
-        if ($this->image) {
-            $validatedData['image'] = $this->image->store('upload');
-        }
+        $validatedData['is_featured'] = $this->isFeatured;
+        $validatedData['image'] = $this->image->store('upload');
 
         if (empty($this->slug)) {
-            $validatedData['slug'] = $this->generateSlug($this->name);
+            $validatedData['slug'] = GenerateSlug::generate($this->name);
         }
 
         Category::create($validatedData);

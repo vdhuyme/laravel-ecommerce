@@ -30,8 +30,9 @@
                                                 name="slug"
                                                 id="slug"
                                                 model="slug"
-                                                placeholder="Nhập slug"
-                                                label="Slug" />
+                                                placeholder="Nhập liên kết cố định"
+                                                label="Liên kết cố định"
+                                                :require="false" />
                                     </div>
                                 </div>
 

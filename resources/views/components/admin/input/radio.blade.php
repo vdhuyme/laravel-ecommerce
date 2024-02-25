@@ -8,7 +8,7 @@
 <div class="form-check">
     <input
             class="form-check-input"
-            type="checkbox"
+            type="radio"
             id="{{ $id }}"
             name="{{ $name }}"
             wire:model="{{ $model ?: '' }}"

@@ -1,319 +1,144 @@
 <div class="page-content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Products</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{route('products')}}">Products</a></li>
-                            <li class="breadcrumb-item active">Create Product</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <form wire:submit.prevent="storeProduct" wire:ignore.self>
+        <x-admin.breadcrumb
+                pageTitle="Sản phẩm"
+                :breadcrumbs="[
+                    ['label' => 'Sản phẩm', 'url' => route('products')],
+                    ['label' => 'Thêm sản phẩm', 'url' => ''],
+                ]" />
+        <x-form wire:submit.prevent="store">
             <div class="row">
-                <div class="col-xxl-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
-                                <li class="nav-item">
-                                    <a wire:ignore class="nav-link active" data-bs-toggle="tab" href="#element"
-                                        role="tab">
-                                        Basic Elements
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a wire:ignore class="nav-link" data-bs-toggle="tab" href="#image" role="tab">
-                                        Images
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a wire:ignore class="nav-link" data-bs-toggle="tab" href="#seo" role="tab">
-                                        SEO
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content text-muted">
-                                <div wire:ignore.self class="tab-pane active" id="element" role="tabpanel">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1 ms-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <div class="mb-3 form-label">
-                                                                <label for="choices-publish-status-input"
-                                                                    class="form-label">Category</label>
-                                                                <select
-                                                                    class="form-select @error('categoryId') is-invalid @enderror"
-                                                                    wire:model="categoryId">
-                                                                    <option value="">Choose a category</option>
-                                                                    @foreach ($categories as $category)
-                                                                    <option value="{{$category->id}}">
-                                                                        {{$category->categoryName}}</option>
-                                                                    @endforeach
-                                                                </select>
-
-                                                                @error('categoryId') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-4">
-                                                            <div class="mb-3 form-label">
-                                                                <label for="choices-publish-status-input"
-                                                                    class="form-label">Status</label>
-                                                                <select
-                                                                    class="form-select @error('productStatus') is-invalid @enderror"
-                                                                    wire:model="productStatus">
-                                                                    <option value="">Choose a status</option>
-                                                                    <option value="published">Published</option>
-                                                                    <option value="unPublished">Un Published</option>
-                                                                </select>
-
-                                                                @error('productStatus') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-4">
-                                                            <div class="mb-3 form-label">
-                                                                <label for="choices-publish-status-input"
-                                                                    class="form-label">Featured Product</label>
-                                                                <select
-                                                                    class="form-select @error('featuredProduct') is-invalid @enderror"
-                                                                    wire:model="featuredProduct">
-                                                                    <option value="">Choose a status</option>
-                                                                    <option value="no">Normal</option>
-                                                                    <option value="yes">Featured</option>
-                                                                </select>
-
-                                                                @error('featuredProduct') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="mb-3 form-label">
-                                                                <label class="form-label" for="productName">Name</label>
-                                                                <input type="text"
-                                                                    class="form-control @error('productName') is-invalid @enderror"
-                                                                    id="productName" wire:model="productName"
-                                                                    placeholder="Enter Name" wire:keyup='generateSlug'>
-
-                                                                @error('productName') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6">
-                                                            <div class="mb-3 form-label">
-                                                                <label class="form-label" for="productSlug">Slug</label>
-                                                                <input type="text"
-                                                                    class="form-control @error('productSlug') is-invalid @enderror"
-                                                                    id="productSlug" placeholder="Enter Slug"
-                                                                    wire:model="productSlug">
-
-                                                                @error('productSlug') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="mb-3 form-label">
-                                                        <label class="form-label" for="description">Description</label>
-                                                        <textarea type="text" rows="7"
-                                                            class="form-control @error('description') is-invalid @enderror"
-                                                            id="description" placeholder="Enter Description"
-                                                            wire:model="description">
-                                                        </textarea>
-
-                                                        @error('description') <span class="text-danger">{{ $message
-                                                            }}</span>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <div class="mb-3 form-label">
-                                                                <label class="originalPrice"
-                                                                    for="meta-title-input">Original
-                                                                    Price</label>
-                                                                <input type="text" x-mask:dynamic="$money($input, ',')"
-                                                                    x-data
-                                                                    class="form-control @error('originalPrice') is-invalid @enderror"
-                                                                    placeholder="Original Price" id="originalPrice"
-                                                                    wire:model="originalPrice">
-
-                                                                @error('originalPrice') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                            <!-- end col -->
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="mb-3 form-label">
-                                                                <label class="form-label" for="sellingPrice">Selling
-                                                                    Price</label>
-                                                                <input type="text" x-mask:dynamic="$money($input, ',')"
-                                                                    x-data
-                                                                    class="form-control @error('sellingPrice') is-invalid @enderror"
-                                                                    placeholder="Selling Price" id="sellingPrice"
-                                                                    wire:model="sellingPrice">
-
-                                                                @error('sellingPrice') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="mb-3 form-label">
-                                                                <label for="stock" class="form-label">Stock</label>
-                                                                <select
-                                                                    class="form-select @error('stock') is-invalid @enderror"
-                                                                    wire:model="stock">
-                                                                    <option value="">Choose stock</option>
-                                                                    <option value="inStock">In Stock</option>
-                                                                    <option value="outStock">Out Stock</option>
-                                                                </select>
-
-                                                                @error('stock') <span class="text-danger">{{ $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div wire:ignore.self class="tab-pane" id="image" role="tabpanel">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1 ms-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div wire:ignore x-data x-init="                            
-                                                        FilePond.registerPlugin(FilePondPluginImagePreview);
-                                                        FilePond.registerPlugin(FilePondPluginFileValidateType);
-                                                        FilePond.registerPlugin(FilePondPluginFileValidateSize);
-                                                        FilePond.create($refs.input);
-                                                        FilePond.setOptions({
-                                                            allowMultiple: true,
-                                                            acceptedFileTypes: ['image/*'],
-                                                            server: {
-                                                                process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                                                                    @this.upload('productImages', file, load, error, progress)
-                                                                    
-                                                                },
-                                                                revert: (filename, load) => {
-                                                                    @this.removeUpload('productImages', filename, load)
-                                                                },
-                                                            },
-                                                        });
-                                                        ">
-                                                        <label>Upload Images</label>
-                                                        <input type="file" x-ref="input" wire:model="productImages">
-                                                    </div>
-
-                                                    @error('productImages') <span class="text-danger">{{ $message
-                                                        }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div wire:ignore.self class="tab-pane" id="seo" role="tabpanel">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1 ms-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="mb-3 form-label">
-                                                                <label class="form-label" for="meta-title-input">Meta
-                                                                    title</label>
-                                                                <input type="text"
-                                                                    class="form-control @error('metaTitle') is-invalid @enderror"
-                                                                    placeholder="Meta title" id="meta-title-input"
-                                                                    wire:model="metaTitle">
-
-                                                                @error('metaTitle') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="mb-3 form-label">
-                                                                <label class="form-label" for="meta-keywords-input">Meta
-                                                                    Keywords</label>
-                                                                <input type="text"
-                                                                    class="form-control @error('metaKey') is-invalid @enderror"
-                                                                    placeholder="Meta keywords" id="meta-keywords-input"
-                                                                    wire:model="metaKey">
-
-                                                                @error('metaKey') <span class="text-danger">{{
-                                                                    $message
-                                                                    }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-label">
-                                                        <label class="form-label" for="meta-description-input">Meta
-                                                            Description</label>
-                                                        <textarea
-                                                            class="form-control @error('metaDescription') is-invalid @enderror"
-                                                            id="meta-description-input" placeholder="Meta description"
-                                                            rows="7" wire:model="metaDescription"></textarea>
-
-                                                        @error('metaDescription') <span class="text-danger">{{ $message
-                                                            }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="col-lg-8">
+                    <x-admin.card>
+                        <x-admin.card.body>
+                            <div class="mb-3">
+                                <x-admin.input
+                                        name="name"
+                                        id="name"
+                                        model="name"
+                                        placeholder="Nhập tên sản phẩm"
+                                        label="Tên sản phẩm" />
                             </div>
 
-                            <div class="form-group">
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary w-sm">Submit</button>
+                            <div class="mb-3">
+                                <x-admin.input
+                                        name="slug"
+                                        id="slug"
+                                        model="slug"
+                                        placeholder="Nhập liên kết cố định"
+                                        label="Liên kết cố định"
+                                        :require="false" />
+                            </div>
+
+                            <div class="mb-3">
+                                <x-admin.editor
+                                        :label="__('Mô tả sản phẩm')"
+                                        type="text"
+                                        id="description"
+                                        name="description"
+                                        model="description"
+                                        rows="7"
+                                        placeholder="{{ __('Nhập mô tả sản phẩm') }}"
+                                >
+                                </x-admin.editor>
+                            </div>
+                        </x-admin.card.body>
+                    </x-admin.card>
+
+                    <x-admin.card>
+                        <x-admin.card.header>
+                            <h5 class="card-title mb-0">{{ __('Ảnh sản phẩm') }}</h5>
+                        </x-admin.card.header>
+                        <x-admin.card.body>
+                            <div class="mb-3">
+                                <p class="text-muted">{{ __('Thêm ảnh') }}</p>
+                                <div class="mb-3">
+                                    <x-filepond
+                                            model="images"
+                                            name="images"
+                                            id="images"
+                                            :multiple="true" />
                                 </div>
+                            </div>
+                        </x-admin.card.body>
+                    </x-admin.card>
+                </div>
+
+                <div class="col-lg-4">
+                    <x-admin.card>
+                        <x-admin.card.header>
+                            <h5 class="card-title mb-0">{{ __('Giá sản phẩm') }}</h5>
+                        </x-admin.card.header>
+                        <x-admin.card.body>
+                            <div class="row">
+                                <div class="mb-3">
+                                    <x-admin.input
+                                            placeholder="Nhập giá gốc"
+                                            label="Giá gốc"
+                                            id="originalPrice"
+                                            name="originalPrice"
+                                            model="originalPrice" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <x-admin.input
+                                            placeholder="Nhập giá bán (giá sale)"
+                                            label="Giá bán"
+                                            id="sellingPrice"
+                                            name="sellingPrice"
+                                            model="sellingPrice"
+                                            :require="false" />
+                                </div>
+                            </div>
+                        </x-admin.card.body>
+                    </x-admin.card>
+
+                    <x-admin.card>
+                        <x-admin.card.header>
+                            <h5 class="card-title mb-0">{{ __('Công bố') }}</h5>
+                        </x-admin.card.header>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <x-admin.input.select
+                                        name="status"
+                                        model="status"
+                                        label="Trạng thái"
+                                        :options="['draft' => 'DRAFT', 'active' => 'ACTIVE']" />
+
+                            </div>
+
+                            <div class="mb-3">
+                                <x-admin.input.select
+                                        name="isFeatured"
+                                        model="isFeatured"
+                                        label="Nổi bật"
+                                        :options="['1' => 'Có', '0' => 'Không']" />
                             </div>
                         </div>
-                    </div>
+                    </x-admin.card>
+
+                    <x-admin.card>
+                        <x-admin.card.header>
+                            <h5 class="card-title mb-0">{{ __('Danh mục') }}</h5>
+                        </x-admin.card.header>
+                        <x-admin.card.body>
+                            <div class="mb-3">
+                                <x-admin.input.select
+                                        name="categoryId"
+                                        model="categoryId"
+                                        label="Danh mục sản phẩm"
+                                        :options="$categories" />
+                            </div>
+
+                            <div class="text-end mb-3">
+                                <x-admin.button
+                                        type="submit"
+                                        class="btn btn-primary">{{ __('Thêm mới') }}</x-admin.button>
+                            </div>
+                        </x-admin.card.body>
+                    </x-admin.card>
                 </div>
             </div>
-        </form>
+        </x-form>
     </div>
 </div>

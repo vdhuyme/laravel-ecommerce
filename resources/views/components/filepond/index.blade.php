@@ -7,10 +7,11 @@
     'fileSize' => '1MB'
 ])
 
-<div
-        wire:ignore
-        x-data
-        x-init="
+<div>
+    <div
+            wire:ignore
+            x-data
+            x-init="
                                                         FilePond.registerPlugin(FilePondPluginImagePreview);
                                                         FilePond.registerPlugin(FilePondPluginFileValidateSize);
                                                         FilePond.create($refs.input);
@@ -27,18 +28,24 @@
                                                             },
                                                         });
                                                         ">
+        @if($label)
+            <label for="{{ $name }}" class="form-label">
+                {{ $label }} {!! $require ? '<span class="text-danger">*</span>' : '' !!}
+            </label>
+        @endif
 
-    <x-admin.input
-            :label="$label"
-            type="file"
-            :name="$name"
-            :id="$id"
-            data-max-file-size="{{ $fileSize }}"
-            x-ref="input"
-            {{ $multiple ? 'multiple' : '' }}
-            wire:model="{{ $model ?: '' }}" />
+        <input
+                type="file"
+                wire:model="{{ $model ?: '' }}"
+                name="{{ $name ?: '' }}"
+                id="{{ $id ?: '' }}"
+                data-max-file-size="{{ $fileSize }}"
+                x-ref="input"
+                {{ $multiple ? 'multiple' : '' }}
+                {{ $attributes }} />
+    </div>
 
-    @error($model) @dd($message)
+    @error($model)
     <span class="text-danger">{{ $message }}</span>
     @enderror
 </div>

@@ -36,19 +36,23 @@
                 <x-admin.card.body>
                     <x-admin.table
                             type="table-bordered"
-                            :headers="['STT', 'Tên', 'Ngày thêm', 'Hành động']">
+                            :headers="['STT', 'Tên', 'Hình ảnh', 'Hành động']">
                         <x-admin.table.body>
                             @forelse($categories as $index => $category)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $category->name }}</td>
-                                    <td>{{ $category->created_at }}</td>
+                                    <td>
+                                        <img
+                                                src="{{ $category->image ? asset($category->image) : asset('assets/admin/images/default.jpg') }}"
+                                                alt="{{ $category->name }}" class="avatar-xs">
+                                    </td>
                                     <td>
                                         <x-link
                                                 :to="route('edit-category', ['id' => $category->id])"
                                                 class="badge badge-soft-warning link-warning">{{ __('Sửa') }}</x-link>
 
-                                        <x-admin.delete-button method="delete({{ $category->id }})"/>
+                                        <x-admin.delete-button method="delete({{ $category->id }})" />
                                     </td>
                                 </tr>
                             @empty
@@ -59,7 +63,7 @@
                         </x-admin.table.body>
                     </x-admin.table>
 
-                    {{ $categories->links() }}
+                    {{ $categories->onEachSide(1)->links() }}
                 </x-admin.card.body>
             </x-admin.card>
         </div>

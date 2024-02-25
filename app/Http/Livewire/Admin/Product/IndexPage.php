@@ -5,73 +5,69 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class IndexPage extends Component
 {
     use WithPagination;
+    use LivewireAlert;
 
-    public $isDeleteId;
+    public string $searchTerm = '';
 
-    public $searchTerm;
+    public array $filterTerm = [];
 
-    public $filterTerm = [];
+    public string $sortTerm = '';
 
-    public $sortTerm;
+    public int $perPage = 10;
 
-    public $perPage = 10;
-
-    public function deleteProduct($id)
+    public function delete(string|int $id): void
     {
         $product = Product::findOrFail($id);
-        $this->isDeleteId = $product->id;
-    }
 
-    public function destroyProduct()
-    {
-        $isDeleteId = $this->isDeleteId;
-        $product = Product::findOrFail($isDeleteId);
-        if ($product->orderProducts->count() > 0 || $product->carts->count() > 0) {
-            session()->flash('warning', 'You can not delete product. This product has been already existed in orders or carts');
-            $this->dispatchBrowserEvent('hidden-modal');
-        } else {
-            $productOldImages = $product->productImages()->get();
-            foreach ($productOldImages as $productOldImage) {
-                File::delete($productOldImage->productImage);
-                $productOldImage->delete();
+        if (!$product->orderProducts->count()
+            && !$product->carts->count()) {
+            $images = $product->images()->get();
+            foreach ($images as $image) {
+                File::delete($image->url);
+                $image->delete();
             }
+
             $product->delete();
-            session()->flash('success', 'Delete product successfully.');
-            $this->dispatchBrowserEvent('hidden-modal');
+            $this->alert('success', trans('Xóa sản phẩm thành công'));
+            return;
         }
+
+        $this->alert('error', trans('Không thể xóa sản phẩm này'));
     }
 
-    public function updatingSearch()
+    #[Layout('admin.layouts.app')]
+    public function render(): View
     {
-        $this->resetPage();
-    }
+        $categories = Category::orderByDesc('created_at')
+            ->withCount('products')
+            ->get();
 
-    public function render()
-    {
-        $searchTerm = '%' . $this->searchTerm . '%';
-        $categories = Category::orderBy('created_at', 'desc')->get();
-        return view('livewire.admin.product.index-page', [
-            'products' => Product::where('productStatus', 'published')
-            ->where('productName', 'like', $searchTerm)
+        $products = Product::where('name', 'like', '%' . $this->searchTerm . '%')
             ->when($this->filterTerm, function ($query) {
-                $query->whereIn('categoryId', $this->filterTerm);
+                $query->whereIn('category_id', $this->filterTerm);
             })
             ->when($this->sortTerm, function ($query) {
-                $query->when($this->sortTerm == 'hightToLow', function ($subQuery) {
-                    $subQuery->orderBy('sellingPrice', 'desc');
+                $query->when($this->sortTerm == 'highToLow', function ($subQuery) {
+                    $subQuery->orderBy('selling_price', 'desc');
                 })
-                    ->when($this->sortTerm == 'lowToHight', function ($subQuery) {
-                        $subQuery->orderBy('sellingPrice', 'asc');
+                    ->when($this->sortTerm == 'lowToHigh', function ($subQuery) {
+                        $subQuery->orderBy('selling_price');
                     });
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->perPage),
+            ->orderByDesc('created_at')
+            ->paginate($this->perPage);
+
+        return view('livewire.admin.product.index-page', [
+            'products' => $products,
             'categories' => $categories,
         ])
             ->extends('admin.layouts.app')

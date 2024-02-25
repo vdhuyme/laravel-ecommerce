@@ -1,14 +1,16 @@
 <div class="app-menu navbar-menu">
     <div class="navbar-brand-box">
-        <a href="{{ route('dashboard') }}" class="logo logo-light">
+        <x-link
+                :to="route('dashboard')"
+                class="logo logo-light">
              <span class="logo-sm">
-                 <img src="{{ asset('assets/admin/images/logo-sm.png') }}" alt="" height="22">
+                 <img src="{{ asset('assets/admin/images/logo-sm.png') }}" alt="Logo" height="22">
              </span>
 
             <span class="logo-lg">
                 <img src="{{ asset('assets/admin/images/logo-light.png') }}" alt="Logo" height="17">
             </span>
-        </a>
+        </x-link>
 
         <button
                 type="button"

@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Admin\Category;
 
+use App\Helpers\GenerateSlug;
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
 class EditPage extends Component
@@ -42,23 +43,21 @@ class EditPage extends Component
         $this->isFeatured = $category->is_featured;
     }
 
-    public function generateSlug(string $name): string
-    {
-        return Str::slug($name);
-    }
 
     public function update(): void
     {
         $validatedData = $this->validate();
+        $validatedData['is_featured'] = $this->isFeatured;
 
         $category = $this->category;
 
+        $validatedData['image'] = $category->image;
         if (!empty($this->image) && $this->image !== $category->image) {
             File::delete($category->image);
             $validatedData['image'] = $this->image->store('upload');
         }
 
-        $newSlug = $this->generateSlug($this->name);
+        $newSlug = GenerateSlug::generate($this->name);
 
         if ($newSlug !== $category->slug) {
             $validatedData['slug'] = $newSlug;
@@ -70,6 +69,7 @@ class EditPage extends Component
         $this->redirect(IndexPage::class, navigate: true);
     }
 
+    #[On('refreshImage')]
     #[Layout('admin.layouts.app')]
     public function render(): View
     {

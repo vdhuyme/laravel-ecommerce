@@ -25,7 +25,7 @@
             value="{{ $value ?: '' }}"
             name="{{ $name ?: '' }}"
             id="{{ $id ?: '' }}"
-            {{ $attributes }}>
+            {{ $attributes }} />
 
     {{ $slot }}
 

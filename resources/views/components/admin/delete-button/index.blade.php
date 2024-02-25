@@ -1,8 +1,9 @@
 @props([
-    'method' => ''
+    'method' => '',
+    'class' => '',
 ])
 
-<div class="d-inline" x-data="{ confirmDelete:false }">
+<div class="d-inline {{ $class }}" x-data="{ confirmDelete:false }">
     <span x-show="!confirmDelete" x-on:click="confirmDelete=true" class="badge badge-soft-danger">{{ __('Xóa') }}</span>
 
     <span x-show="confirmDelete" x-on:click="confirmDelete=false" wire:click="{{ $method }}" class="badge badge-soft-danger">{{ __('Xác nhận') }}</span>
