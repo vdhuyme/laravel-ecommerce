@@ -28,8 +28,8 @@ class IndexPage extends Component
     {
         $product = Product::findOrFail($id);
 
-        if (!$product->orderProducts->count()
-            && !$product->carts->count()) {
+        if ($product->orderProducts->isEmpty()
+            && $product->carts->isEmpty()) {
             $images = $product->images()->get();
             foreach ($images as $image) {
                 File::delete($image->url);

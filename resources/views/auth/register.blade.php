@@ -1,7 +1,7 @@
 @extends('auth.layouts.app')
 @section('content')
     <div class="text-center mt-2">
-        <h5 class="text-primary">{{ __('Đăng nhập') }}</h5>
+        <h5 class="text-primary">{{ __('Đăng kí') }}</h5>
     </div>
     <div class="p-2">
         <x-form method="POST" action="{{ route('register') }}">

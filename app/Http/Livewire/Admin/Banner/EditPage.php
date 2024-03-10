@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Banner;
 
-use App\Models\Banner;
+use App\Models\Slider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -39,7 +39,7 @@ class EditPage extends Component
 
     public function mount($id)
     {
-        $banner = Banner::findOrFail($id);
+        $banner = Slider::findOrFail($id);
         $this->isEditId = $banner->id;
         $this->bannerTitle = $banner->bannerTitle;
         $this->bannerSubTitle = $banner->bannerSubTitle;
@@ -51,7 +51,7 @@ class EditPage extends Component
     {
         $this->validate();
         $isEditId = $this->isEditId;
-        $banner = Banner::findOrFail($isEditId);
+        $banner = Slider::findOrFail($isEditId);
         $oldImage = $banner->bannerImage;
         $newImage = $this->newBannerImage;
         if ($newImage != null) {

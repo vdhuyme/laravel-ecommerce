@@ -46,7 +46,8 @@ class EditPage extends Component
     #[Validate('required|numeric')]
     public int $categoryId;
 
-    public array $images = [];
+    #[Validate('nullable')]
+    public mixed $images = [];
 
     public mixed $oldImages;
 

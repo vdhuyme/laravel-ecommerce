@@ -4,35 +4,23 @@ namespace App\Http\Livewire\Client\Cart;
 
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
+#[On('refreshMiniCart')]
 class MiniCart extends Component
 {
-    public $count;
-
-    public $total;
-
-    public $cartProducts;
-
-    protected $listeners = [
-        'update' => 'checkCount',
-    ];
-
-    public function checkCount()
+    public function render(): View
     {
-        if (Auth::user()) {
-            $cartProducts = Cart::where('userId', Auth::user()->id)->get();
-            $count = Cart::where('userId', Auth::user()->id)->count();
-            $this->cartProducts = $cartProducts;
-            return $this->count = $count;
-        } else {
-            return $this->count = 0;
-        }
-    }
+        $userId = Auth::id();
+        $cartProducts =  Cart::where('user_id', $userId)
+            ->with(['product', 'product.images'])
+            ->orderByDesc('created_at')
+            ->get();
 
-    public function render()
-    {
-        $this->count = $this->checkCount();
-        return view('livewire.client.cart.mini-cart');
+        return view('livewire.client.cart.mini-cart', [
+            'cartProducts' => $cartProducts,
+        ]);
     }
 }

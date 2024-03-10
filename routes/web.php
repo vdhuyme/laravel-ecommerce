@@ -19,13 +19,13 @@ use App\Http\Livewire\Admin\User\ProfilePage;
 use App\Http\Livewire\Admin\Contact\IndexPage as ContactIndexPage;
 use App\Http\Livewire\Admin\Order\IndexPage as OrderIndexPage;
 use App\Http\Livewire\Admin\Order\EditPage as OrderEditPage;
+use App\Http\Livewire\Client\Cart\IndexPage;
 use App\Http\Livewire\Client\Home\IndexPage as ClientHomeIndexPage;
 use App\Http\Livewire\Client\Post\IndexPage as ClientArticleIndexPage;
 use App\Http\Livewire\Client\Shop\IndexPage as ClientShopIndexPage;
 use App\Http\Livewire\Client\Product\DetailPage as ClientProductDetail;
 use App\Http\Livewire\Client\Post\DetailPage as ClientArticleDetail;
 use App\Http\Livewire\Client\User\MyAccount as ClientMyAccount;
-use App\Http\Livewire\Client\Cart\IndexPage as ClientCartIndexPage;
 use App\Http\Livewire\Client\Order\CheckOutPage as ClientCheckOutPage;
 use App\Http\Livewire\Client\Order\ThankYou as ClientThankYouPage;
 use App\Http\Livewire\Client\Contact\IndexPage as ClientContactIndexPage;
@@ -67,12 +67,11 @@ Route::group(['prefix' => '/'], function () {
 Route::get('/', ClientHomeIndexPage::class)->name('/');
 Route::get('/lien-he-voi-chung-toi', ClientContactIndexPage::class)->name('contactUs');
 Route::get('/bai-viet', ClientArticleIndexPage::class)->name('listOfArticles');
-Route::get('/san-pham', ClientShopIndexPage::class)->name('listOfProducts');
-Route::get('/chi-tiet-san-pham/{id}/{slug}', ClientProductDetail::class)->name('productDetail');
+Route::get('/san-pham', ClientShopIndexPage::class)->name('product-list');
+Route::get('/chi-tiet-san-pham/{id}/{slug}', ClientProductDetail::class)->name('product-detail');
 Route::get('/chi-tiet-bai-viet/{id}/{slug}', ClientArticleDetail::class)->name('articleDetail');
-Route::group(['prefix' => '/', 'middleware' => ['auth', 'verified']], function () {
-    Route::get('/cam-on', ClientThankYouPage::class)->name('thankYou');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/gio-hang', IndexPage::class)->name('user-cart');
     Route::get('/tai-khoan-cua-toi', ClientMyAccount::class)->name('myAccount');
-    Route::get('/gio-hang', ClientCartIndexPage::class)->name('myCart')->middleware('user');
     Route::get('/dat-hang', ClientCheckOutPage::class)->name('checkOut')->middleware('user');
 });

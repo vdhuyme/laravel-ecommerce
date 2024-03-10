@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Banner;
 
-use App\Models\Banner;
+use App\Models\Slider;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,14 +21,14 @@ class IndexPage extends Component
 
     public function deleteBanner($id)
     {
-        $banner = Banner::findOrFail($id);
+        $banner = Slider::findOrFail($id);
         $this->isDeleteId = $banner->id;
     }
 
     public function destroyBanner()
     {
         $isDeleteId = $this->isDeleteId;
-        $banner = Banner::findOrFail($isDeleteId);
+        $banner = Slider::findOrFail($isDeleteId);
         File::delete($banner->bannerImage);
         $banner->delete();
         session()->flash('success', 'Delete banner successfully.');
@@ -45,7 +45,7 @@ class IndexPage extends Component
     {
         $searchTerm = '%' . $this->searchTerm . '%';
         return view('livewire.admin.banner.index-page', [
-            'banners' => Banner::where('bannerTitle', 'like', $searchTerm)
+            'banners' => Slider::where('bannerTitle', 'like', $searchTerm)
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->perPage)
         ])

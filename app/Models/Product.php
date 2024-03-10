@@ -32,19 +32,11 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function featuredImage(): string
-    {
-        $featuredImage = $this->images()
-            ->first();
-
-        return $featuredImage
-            ? $featuredImage->url
-            : asset('assets/admin/images/default.jpg');
-    }
-
     public function getFeaturedImageAttribute(): string
     {
-        return $this->featuredImage();
+        $featuredImage = $this->images()->first();
+
+        return $featuredImage ? $featuredImage->url : asset('assets/admin/images/default.jpg');
     }
 
     public function carts(): HasMany

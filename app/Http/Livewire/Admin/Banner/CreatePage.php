@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Banner;
 
-use App\Models\Banner;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -36,7 +36,7 @@ class CreatePage extends Component
         $validatedData = $this->validate();
         $imgUrl = $this->bannerImage->store('upload');
         $validatedData['bannerImage'] = $imgUrl;
-        Banner::create($validatedData);
+        Slider::create($validatedData);
         $this->reset();
         session()->flash('success', 'Create new banner successfully.');
         return redirect()->route('banners');
