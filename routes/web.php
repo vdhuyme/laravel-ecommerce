@@ -4,9 +4,9 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Livewire\Admin\Post\CreatePage as ArticleCreatePage;
 use App\Http\Livewire\Admin\Post\EditPage as ArticleEditPage;
 use App\Http\Livewire\Admin\Post\IndexPage as ArticleIndexPage;
-use App\Http\Livewire\Admin\Banner\CreatePage as BannerCreatePage;
-use App\Http\Livewire\Admin\Banner\EditPage as BannerEditPage;
-use App\Http\Livewire\Admin\Banner\IndexPage as BannerIndexPage;
+use App\Http\Livewire\Admin\Slider\CreatePage as BannerCreatePage;
+use App\Http\Livewire\Admin\Slider\EditPage as BannerEditPage;
+use App\Http\Livewire\Admin\Slider\IndexPage as BannerIndexPage;
 use App\Http\Livewire\Admin\Category\CreatePage as CategoryCreatePage;
 use App\Http\Livewire\Admin\Category\EditPage as CategoryEditPage;
 use App\Http\Livewire\Admin\Category\IndexPage as CategoryIndexPage;
@@ -27,7 +27,6 @@ use App\Http\Livewire\Client\Product\DetailPage as ClientProductDetail;
 use App\Http\Livewire\Client\Post\DetailPage as ClientArticleDetail;
 use App\Http\Livewire\Client\User\MyAccount as ClientMyAccount;
 use App\Http\Livewire\Client\Order\CheckOutPage as ClientCheckOutPage;
-use App\Http\Livewire\Client\Order\ThankYou as ClientThankYouPage;
 use App\Http\Livewire\Client\Contact\IndexPage as ClientContactIndexPage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,9 +46,9 @@ Route::group(['prefix' => '/'], function () {
     Route::get('create-post', ArticleCreatePage::class)->name('create-posts');
     Route::get('edit-post/{id}', ArticleEditPage::class)->name('edit-posts');
 
-    Route::get('banners', BannerIndexPage::class)->name('banners');
-    Route::get('create-banner', BannerCreatePage::class)->name('create-banner');
-    Route::get('edit-banner/{id}', BannerEditPage::class)->name('edit-banner');
+    Route::get('sliders', BannerIndexPage::class)->name('sliders');
+    Route::get('create-slider', BannerCreatePage::class)->name('create-slider');
+    Route::get('edit-slider/{id}', BannerEditPage::class)->name('edit-slider');
 
     Route::get('users', UserIndexPage::class)->name('users');
     Route::get('user-profile', ProfilePage::class)->name('user-profile')->middleware('password.confirm:password.confirm,1');

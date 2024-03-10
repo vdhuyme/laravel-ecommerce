@@ -46,8 +46,8 @@
                         icon="bx bx-news"/>
 
                 <x-admin.left-sidebar.item
-                        :route="route('banners')"
-                        name="Banner"
+                        :route="route('sliders')"
+                        name="Slider"
                         icon="bx bx-slider-alt"/>
 
                 <x-admin.left-sidebar.item

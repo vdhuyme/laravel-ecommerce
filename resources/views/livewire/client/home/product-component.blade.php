@@ -1,4 +1,4 @@
-<div class="product-area pb-60">
+<div class="product-area pt-100 pb-100">
     <div class="container">
         <div class="section-title text-center">
             <h2>{{ __('Các sản phẩm nổi bật') }}</h2>
