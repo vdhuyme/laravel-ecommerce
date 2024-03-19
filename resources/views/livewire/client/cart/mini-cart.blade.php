@@ -1,51 +1,46 @@
-<li class="minicart-wrap">
-    <a href="{{ route('myCart') }}" class="minicart-btn toolbar-btn">
-        <i class="ion-bag"></i>
-        <span class="cart-item_count text-white">{{ $count }}</span>
-    </a>
-    @if (Auth::user())
-        <div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2">
-            @if ($cartProducts->count() > 0)
-                @foreach ($cartProducts as $product)
-                    <div class="single-cart-item">
-                        @if ($product->product->productImages->count() > 0)
-                            <div class="cart-img">
-                                <a
-                                        href="{{route('productDetail', ['id' => $product->product->id, 'slug' => $product->product->productSlug]) }}"><img
-                                            src="{{ $product->product->productImages[0]->productImage }}" alt=""></a>
-                            </div>
-                        @else
-                            <div class="cart-img">
-                                <a
-                                        href="{{ route('productDetail', ['id' => $product->product->id, 'slug' => $product->product->productSlug]) }}"><img
-                                            src="{{ asset('client/assets/images/default.png') }}" alt=""></a>
-                            </div>
-                        @endif
-                        <div class="cart-text">
-                            <h5 class="title"><a
-                                        href="{{ route('productDetail', ['id' => $product->product->id, 'slug' => $product->product->productSlug]) }}">{{ $product->product->productName }}</a>
-                            </h5>
-                            <div class="cart-text-btn">
-                                <div class="cart-qty">
-                                    <span>{{ $product->quantity }}×</span>
-                                    <span class="cart-price">{{ number_format($product->product->sellingPrice, 0, '.', '.') }} VNĐ</span>
-                                    <span class="old-price"><del>{{ number_format($product->product->originalPrice, 0, '.', '.') }} VNĐ</del></span>
-                                </div>
-                            </div>
+<div class="same-style cart-wrap">
+    <button class="icon-cart">
+        <i class="pe-7s-shopbag"></i>
+        @if(Auth::check())
+            <span class="count-style">{{ $cartProducts->count() }}</span>
+        @endif
+    </button>
+
+    @if(Auth::check())
+        <div class="shopping-cart-content">
+            <ul>
+                @forelse($cartProducts as $cartProduct)
+                    <li class="single-shopping-cart">
+                        <div class="shopping-cart-img">
+                            <x-link
+                                    :to="route('product-detail', ['id' => $cartProduct->product->id, 'slug' => $cartProduct->product->slug])">
+                                <img
+                                        class="img-fluid"
+                                        alt="{{ $cartProduct->product->name }}"
+                                        src="{{ asset($cartProduct->product->featured_image) }}"></x-link>
                         </div>
-                    </div>
-                @endforeach
-                <div class="cart-links d-flex justify-content-center">
-                    <a class="obrien-button white-btn" href="{{ route('myCart') }}">Giỏ hàng</a>
-                    <a class="obrien-button white-btn" href="{{ route('checkOut') }}">Thanh toán</a>
-                </div>
-            @else
-                <span>Chưa có sản phẩm nào</span>
-            @endif
-        </div>
-    @else
-        <div class="cart-item-wrapper dropdown-sidemeny dropdown-hover-2">
-            Chưa có sản phẩm nào
+
+                        <div class="shopping-cart-title">
+                            <h4><x-link
+                                        :to="route('product-detail', ['id' => $cartProduct->product->id, 'slug' => $cartProduct->product->slug])">{{ $cartProduct->product->name }}</x-link></h4>
+                            <h6>{{ __('Số lượng: :amount', ['amount' => $cartProduct->quantity]) }}</h6>
+                            <span>{{ __(':price', ['price' => FormatCurrencyHelper::formatCurrency($cartProduct->quantity * $cartProduct->product->selling_price)]) }}</span>
+                        </div>
+                    </li>
+                @empty
+                    <li class="single-shopping-cart">
+                        <p>{{ __('Giỏ hàng đang trống kìa bạn ơi 😢') }}</p>
+                    </li>
+                @endforelse
+            </ul>
+
+            <div class="shopping-cart-btn btn-hover text-center">
+                <x-link
+                        :to="route('user-cart')"
+                        class="default-btn">{{ __('Xem giỏ hàng') }}</x-link>
+                <x-link
+                        class="default-btn">{{ __('Thanh toán') }}</x-link>
+            </div>
         </div>
     @endif
-</li>
+</div>

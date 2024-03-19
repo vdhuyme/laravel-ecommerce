@@ -3,14 +3,15 @@
 namespace App\Http\Livewire\Admin\Dashboard;
 
 use App\Models\Order;
-use App\Models\User;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class IndexPage extends Component
 {
     use WithPagination;
-    protected $paginationTheme = 'bootstrap';
+
+    protected string $paginationTheme = 'bootstrap';
 
     public $perPage = 20;
 
@@ -33,20 +34,8 @@ class IndexPage extends Component
         $this->dispatchBrowserEvent('hidden-modal');
     }
 
-    public function render()
+    public function render(): View
     {
-        $users = User::orderBy('created_at', 'desc')->get();
-        $allOrders = Order::orderBy('created_at', 'desc')->get();
-        $pendingOrders = Order::orderBy('created_at', 'desc')
-            ->where('status', 'pending')->paginate($this->perPage);
-        $this->totalEarnings = Order::where('status', 'success')->sum('total');
-
-        return view('livewire.admin.dashboard.index-page', [
-            'users' => $users,
-            'allOrders' => $allOrders,
-            'pendingOrders' => $pendingOrders,
-        ])
-            ->extends('admin.layouts.app')
-            ->section('content');
+        return view('livewire.admin.dashboard.index-page');
     }
 }

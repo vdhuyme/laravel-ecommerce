@@ -1,158 +1,98 @@
 <div>
-    <div class="breadcrumbs-area position-relative">
+    <x-client.breadcrumb :breadcrumbs="[
+        ['url' => '/', 'label' => 'Trang chủ'],
+        ['url' => '', 'label' => 'Cửa hàng']
+    ]" />
+
+    <div class="shop-area pt-95 pb-100">
         <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <div class="breadcrumb-content position-relative section-content">
-                        <h3 class="title-3">Cửa hàng</h3>
-                        <ul>
-                            <li><a href="/">Trang chủ</a></li>
-                            <li>Cửa hàng</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="shop-main-area mb-text">
-        <div class="container container-default custom-area">
             <div class="row flex-row-reverse">
-                <div class="col-lg-9 col-12 col-custom widget-mt">
-                    <div class="shop_toolbar_wrapper">
-                        <div class="shop_toolbar_btn">
-                            <button data-role="grid_3" type="button" class="active btn-grid-3" data-bs-toggle="tooltip"
-                                title="3"><i class="fa fa-th"></i></button>
-                            <button data-role="grid_list" type="button" class="btn-list" data-bs-toggle="tooltip"
-                                title="List"><i class="fa fa-th-list"></i></button>
+                <div class="col-lg-12">
+                    <div class="shop-top-bar mb-35">
+                        <div class="filter-active">
+                            <a href="#"><i class="fa fa-plus"></i> {{ __('Lọc theo') }}</a>
                         </div>
                     </div>
 
-                    <div class="row shop_wrapper grid_3">
-                        @if ($products->count())
-                        @foreach ($products as $product)
-                        <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
-                            <div class="single-product position-relative">
-                                <div class="product-image">
-                                    @if ($product->productImages->count())
-                                        <a class="d-block"
-                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
-                                            <img src="{{ asset($product->productImages[0]->productImage) }}" alt="{{ $product->name }}"
-                                                 class="product-image-1 w-100">
-                                        </a>
-                                    @else
-                                        <a class="d-block"
-                                           href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">
-                                            <img src="{{ asset('client/assets/images/default.png') }}"
-                                                 class="product-image-1 w-100">
-                                        </a>
-                                    @endif
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-title">
-                                        <h4 class="title-2"> <a
-                                                href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{ $product->productName }}</a>
-                                        </h4>
-                                    </div>
-                                    <div class="price-box">
-                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.', '.') }} VNĐ</span>
-                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0, '.', '.') }} VNĐ</del></span>
-                                    </div>
-                                </div>
-                                <div class="product-content-listview">
-                                    <div class="product-title">
-                                        <h4 class="title-2"> <a
-                                                href="{{ route('productDetail', ['id' => $product->id, 'slug' => $product->productSlug]) }}">{{ $product->productName }}</a>
-                                        </h4>
-                                    </div>
-                                    <div class="price-box">
-                                        <span class="regular-price ">{{ number_format($product->sellingPrice, 0, '.', '.') }} VNĐ</span>
-                                        <span class="old-price"><del>{{ number_format($product->originalPrice, 0, '.', '.') }} VNĐ</del></span>
-                                    </div>
-                                    <p class="desc-content">
-                                        {{ $product->description }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                        @else
+                    <div class="product-filter-wrapper" wire:ignore>
                         <div class="row">
-                            <div class="col-sm-12 col-custom">
-                                <div class="mt-3 mb-3">
-                                    <div class="text-center mt-3">Không có sản phẩm nào</div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-
-                    {{ $products->onEachSide(1)->links('client.components.pagination') }}
-                </div>
-                <div class="col-lg-3 col-12 col-custom">
-                    <aside class="sidebar_widget widget-mt">
-                        <div class="widget_inner">
-                            <div class="widget-list widget-mb-1">
-                                <h3 class="widget-title">Tìm kiếm</h3>
-                                <div class="search-box">
-                                    <div class="input-group">
-                                        <input wire:model="searchTerm" type="text" class="form-control"
-                                            placeholder="Tìm kiếm sản phẩm">
+                            <div class="col-md-4 col-sm-6 col-xs-12 mb-30">
+                                <div class="pro-sidebar-search mb-50">
+                                    <div class="pro-sidebar-search-form">
+                                        <input
+                                                wire:model.live="searchTerm"
+                                                name="searchTerm"
+                                                id="searchTerm"
+                                                type="text"
+                                                placeholder="{{ __('Nhập từ khóa') }}" />
+                                        <button><i class="pe-7s-search"></i> </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="widget-list widget-mb-1">
-                                <h3 class="widget-title">Danh mục</h3>
-                                <div class="sidebar-body">
-                                    <ul class="sidebar-list">
-                                        @if ($categories->count()>0)
-                                            @foreach ($categories as $category)
-                                            <li>
-                                                <input class="form-check-input" type="checkbox" wire:model="filterTerm"
-                                                    value="{{$category->id}}" id="{{$category->categoryName}}">
-                                                <label class="form-check-label" for="{{$category->categoryName}}">
-                                                    {{ $category->categoryName }} ({{ $category->products->count() }})
-                                                </label>
-                                            </li>
-                                            @endforeach
-                                        @else
-                                            <li>Không có danh mục nào</li>
-                                        @endif
+                            <div class="col-md-4 col-sm-6 col-xs-12 mb-30">
+                                <div class="product-filter">
+                                    <h5>Sắp xếp theo</h5>
+                                    <ul class="color-filter">
+                                        <li><input
+                                                    id="sort-default"
+                                                    wire:model.live="sortTerm"
+                                                    name="sortTerm"
+                                                    type="radio"
+                                                    value=""> <label for="sort-default">{{ __('Mặc định') }}</label></li>
+
+                                        <li><input
+                                                    id="sort-low-to-high"
+                                                    wire:model.live="sortTerm"
+                                                    name="sortTerm"
+                                                    type="radio"
+                                                    value="lowToHigh"> <label for="sort-low-to-high">{{ __('Giá: từ thấp đến cao') }}</label></li>
+
+                                        <li><input
+                                                    id="sort-high-to-low"
+                                                    wire:model.live="sortTerm"
+                                                    name="sortTerm"
+                                                    type="radio"
+                                                    value="highToLow"> <label for="sort-high-to-low">{{ __('Giá: từ cao đến thấp') }}</label></li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <div class="widget-list widget-mb-1">
-                                <h3 class="widget-title">Sắp xếp</h3>
-                                <div class="sidebar-body">
-                                    <ul class="sidebar-list">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" wire:model="sortTerm" value=""
-                                                name="flexRadioDefault" id="flexRadioDefault3">
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                Mặc định
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" wire:model="sortTerm"
-                                                value="lowToHight" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                Giá tăng dần
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" wire:model="sortTerm"
-                                                value="hightToLow" name="flexRadioDefault" id="flexRadioDefault2">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                Giá giảm dần
-                                            </label>
-                                        </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12 mb-30">
+                                <div class="product-filter">
+                                    <h5>{{ __('Danh mục') }}</h5>
+                                    <ul class="color-filter">
+                                        @foreach($categories as $key => $category)
+                                            <li><input
+                                                        id="{{ __(':name-:key', ['name' => $category->name, 'key' => $key]) }}"
+                                                        wire:model.live="filterTerm"
+                                                        name="filterTerm"
+                                                        type="checkbox"
+                                                        value="{{ $category->id }}"> <label for="{{ __(':name-:key', ['name' => $category->name, 'key' => $key]) }}">{{ $category->name }}</label></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    </aside>
+                    </div>
+
+                    <div class="shop-bottom-area">
+                        <div class="row">
+                            @foreach($products as $product)
+                                <div class="col-xl-4 col-md-6 col-lg-4 col-sm-6">
+                                    <x-client.product-card
+                                            wire:key="shopProducts"
+                                            :product="$product"
+                                            :scrollToZoom="true" />
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div
+                                x-intersect="$wire.loadMore()"
+                                class="load-more">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

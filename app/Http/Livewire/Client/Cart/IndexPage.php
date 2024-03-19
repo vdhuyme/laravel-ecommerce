@@ -4,76 +4,64 @@ namespace App\Http\Livewire\Client\Cart;
 
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class IndexPage extends Component
 {
-    public $count;
+    use LivewireAlert;
 
-    public $total;
+    public mixed $cartProducts;
 
-    public $cartProducts;
-
-    public $quantity;
-
-    protected $listeners = [
-        'update' => '$refresh'
-    ];
-
-    public function mount()
+    public function increase(string|int $productId): void
     {
-        if (Auth::user()) {
-            $cartProducts = Cart::where('userId', Auth::user()->id)->get();
-            $count = Cart::where('userId', Auth::user()->id)->count();
-            $this->cartProducts = $cartProducts;
-            $this->count = $count;
+        Cart::where('product_id', $productId)
+            ->where('user_id', Auth::id())
+            ->firstOrFail()
+            ->increment('quantity');
 
-            foreach ($cartProducts as $product) {
-                $this->total += $product->product->sellingPrice * $product->quantity;
-            }
-        } else {
-            $this->count = 0;
+        $this->dispatch('refreshMiniCart');
+        $this->alert('success', trans('Cập nhật thành công'));
+    }
+
+    public function decrease(string|int $productId): void
+    {
+        $cart = Cart::where('product_id', $productId)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        $cart->decrement('quantity');
+
+        if ($cart->quantity < 1) {
+            $cart->delete();
         }
+
+        $this->dispatch('refreshMiniCart');
+        $this->alert('success', trans('Cập nhật thành công'));
     }
 
-    public function incQuantity($id)
+    public function delete(string|int $cartProductId): void
     {
-        $cartProduct = Cart::where('id', $id)
-            ->where('userId', Auth::user()->id)->firstOrFail();
+        Cart::where('product_id', $cartProductId)
+            ->where('user_id', Auth::id())
+            ->delete();
 
-        if ($cartProduct->quantity < 5) {
-            $cartProduct->increment('quantity');
-            $this->emit('update');
-        } else {
-            session()->flash('warning', 'Số lượng tối đa là 5 trên 1 loại sản phẩm.');
-        }
+        $this->alert('success', trans('Xóa thành công'));
+        $this->dispatch('refreshMiniCart');
     }
 
-    public function decQuantity($id)
+    #[Layout('client.layouts.app')]
+    public function render(): View
     {
-        $cartProduct = Cart::where('id', $id)
-            ->where('userId', Auth::user()->id)->firstOrFail();
+        $this->cartProducts = $cartProducts = Cart::where('user_id', Auth::id())
+            ->with(['product', 'product.images'])
+            ->orderByDesc('created_at')
+            ->get();
 
-        if ($cartProduct->quantity > 1) {
-            $cartProduct->decrement('quantity');
-            $this->emit('update');
-        } else {
-            session()->flash('warning', 'Số lượng tối thiểu là 1 trên 1 loại sản phẩm.');
-        }
-    }
-
-    public function deleteCartProduct($id)
-    {
-        $cartProduct = Cart::where('id', $id)
-            ->where('userId', Auth::user()->id)->firstOrFail();
-        $cartProduct->delete();
-        $this->emit('update');
-    }
-
-    public function render()
-    {
-        return view('livewire.client.cart.index-page')
-            ->extends('client.layouts.app')
-            ->section('content');
+        return view('livewire.client.cart.index-page', [
+            'cartProducts' => $cartProducts,
+        ]);
     }
 }

@@ -1,110 +1,84 @@
 <div>
-    <div class="breadcrumbs-area position-relative">
+    <x-client.breadcrumb :breadcrumbs="[
+        ['url' => '/', 'label' => 'Trang chủ'],
+        ['url' => '', 'label' => 'Giỏ hàng']
+    ]" />
+
+    <div class="cart-main-area pt-90 pb-100">
         <div class="container">
+            <h3 class="cart-page-title">{{ __('Giỏ hàng của bạn') }}</h3>
             <div class="row">
-                <div class="col-12 text-center">
-                    <div class="breadcrumb-content position-relative section-content">
-                        <h3 class="title-3">Giỏ hàng</h3>
-                        <ul>
-                            <li><a href="/">Trang chủ</a></li>
-                            <li>Giỏ hàng của tôi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="table-content table-responsive cart-table-content">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>{{ __('Hình ảnh') }}</th>
+                                <th>{{ __('Tên sản phẩm') }}</th>
+                                <th>{{ __('Giá mua') }}</th>
+                                <th>{{ __('Số luợng') }}</th>
+                                <th>{{ __('Tạm tính') }}</th>
+                                <th>{{ __('Hành động') }}</th>
+                            </tr>
+                            </thead>
 
-    <div class="cart-main-wrapper mt-no-text mb-no-text">
-        <div class="container container-default-2 custom-area">
-            @if ($cartProducts->count() > 0)
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        @include('client.components.alerts')
-
-                        <div class="cart-table table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
+                            <tbody>
+                            @forelse($cartProducts as $cartProduct)
                                 <tr>
-                                    <th class="pro-thumbnail">Hình ảnh</th>
-                                    <th class="pro-title">Tên sản phẩm</th>
-                                    <th class="pro-price">Giá mua</th>
-                                    <th class="pro-quantity">Số lượng</th>
-                                    <th class="pro-subtotal">Thành tiền</th>
-                                    <th class="pro-remove">Xóa</th>
+                                    <td class="product-thumbnail">
+                                        <x-link
+                                                :to="route('product-detail', ['id' => $cartProduct->product->id, 'slug' => $cartProduct->product->slug])">
+                                            <img
+                                                    class="img-fluid"
+                                                    alt="{{ $cartProduct->product->name }}"
+                                                    src="{{ asset($cartProduct->product->featured_image) }}"></x-link>
+                                    </td>
+
+                                    <td class="product-name"><x-link :to="route('product-detail', ['id' => $cartProduct->product->id, 'slug' => $cartProduct->product->slug])">{{ $cartProduct->product->name }}</x-link></td>
+
+                                    <td class="product-price-cart"><span class="amount">{{ __(':price', ['price' => FormatCurrencyHelper::formatCurrency($cartProduct->product->selling_price)]) }}</span></td>
+
+                                    <td class="product-quantity">
+                                        <div class="cart-plus-minus">
+                                            <div wire:click="decrease({{ $cartProduct->product_id }})" class="dec qtybutton">{{ __('-') }}</div>
+                                            <input
+                                                    readonly
+                                                    value="{{ $cartProduct->quantity }}"
+                                                    class="cart-plus-minus-box"
+                                                    type="text"
+                                                    name="qtybutton" />
+                                            <div wire:click="increase({{ $cartProduct->product_id }})" class="inc qtybutton">{{ __('+') }}</div>
+                                        </div>
+                                    </td>
+
+                                    <td class="product-subtotal">{{ __(':price', ['price' => FormatCurrencyHelper::formatCurrency($cartProduct->quantity * $cartProduct->product->selling_price)]) }}</td>
+
+                                    <td class="product-remove">
+                                        <a wire:click="delete({{ $cartProduct->product_id }})" title="{{ __('Xóa') }}"><i class="fa fa-times"></i></a>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($cartProducts as $product)
-                                    <tr>
-                                        <td class="pro-thumbnail">
-                                            @if ($product->product->productImages->count() > 0)
-                                                <a
-                                                        href="{{ route('productDetail', ['id' => $product->product->id, 'slug' => $product->product->productSlug]) }}"><img
-                                                            class="img-fluid"
-                                                            src="{{ $product->product->productImages[0]->productImage }}"
-                                                            alt="Product" /></a>
-                                            @else
-                                                <a  href="{{route('productDetail', ['id' => $product->product->id, 'slug' => $product->product->productSlug])}}"><img
-                                                            class="img-fluid" src="{{ asset('client/assets/images/default.png') }}"
-                                                            alt="Product" /></a>
-                                            @endif
-                                        </td>
-                                        <td class="pro-title">
-                                            <a href="{{ route('productDetail', ['id' => $product->product->id, 'slug' => $product->product->productSlug]) }}">{{ $product->product->productName }}</a>
-                                        </td>
-                                        <td class="pro-price"><span>{{ number_format($product->product->sellingPrice, 0, '.', '.') }} VNĐ </span> <span
-                                                    class="old-price"><del>{{ number_format($product->product->originalPrice, 0, '.', '.') }} VNĐ</del></span></td>
-                                        <td class="pro-quantity">
-                                            <div class="quantity">
-                                                <div class="cart-plus-minus">
-                                                    <input readonly class="cart-plus-minus-box"
-                                                           value="{{ $product->quantity }}" type="text">
-                                                    <div wire:click="decQuantity({{ $product->id }})" class="dec qtybutton"><i
-                                                                class="fa fa-minus"></i>
-                                                    </div>
-                                                    <div wire:click="incQuantity({{ $product->id }})" class="inc qtybutton"><i
-                                                                class="fa fa-plus"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="pro-subtotal">
-                                        <span>{{ number_format($product->product->sellingPrice*$product->quantity, 0, '.', '.')}} VNĐ</span>
-                                        </td>
-                                        <td class="pro-remove"><button wire:click="deleteCartProduct({{ $product->id }})"><i
-                                                        class="ion-trash-b"></i></button></td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="100%">{{ __('Giỏ hàng đang trống kìa bạn ơi 😢') }}</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-5 ml-auto">
-                        <div class="cart-calculator-wrapper">
-                            <a href="{{ route('checkOut') }}" class="btn obrien-button primary-btn d-block">Thanh toán</a>
-                        </div>
-                    </div>
-                </div>
-            @else
-                <span class="text-center">
-                <div class="error-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="error_form">
-                                    <h3 class="title-3">Chưa có sản phẩm nào được thêm vào giỏ hàng</h3>
-                                    <a href="{{ route('listOfProducts') }}">Tiếp tục mua sắm</a>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="cart-shiping-update-wrapper">
+                                <div class="cart-shiping-update">
+                                    <a href="#">{{ __('Tiếp tục mua sắm') }}</a>
+
+                                    <a href="#">{{ __('Thanh toán') }}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </span>
-            @endif
+            </div>
         </div>
     </div>
 </div>

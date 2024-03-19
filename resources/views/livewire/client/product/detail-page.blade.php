@@ -1,139 +1,60 @@
-@section('metaDes')
-    {{ $metaDescription }}
-@endsection
-@section('metaTitle')
-    {{ $metaTitle }}
-@endsection
-@section('metaKey')
-    {{ $metaKey }}
-@endsection
-
 <div>
-    <div class="breadcrumbs-area position-relative">
+    <x-client.breadcrumb :breadcrumbs="[
+        ['url' => '/', 'label' => 'Trang chủ'],
+        ['url' => '', 'label' => __('Sản phẩm: :name', ['name' => $product->name])]
+    ]" />
+
+    <div class="shop-area pt-100 pb-100">
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center">
-                    <div class="breadcrumb-content position-relative section-content">
-                        <h3 class="title-3">{{ $productName }}</h3>
-                        <ul>
-                            <li><a href="/">Trang chủ</a></li>
-                            <li>{{ $productName }}</li>
-                        </ul>
+                <div class="col-xl-7 col-lg-7 col-md-12">
+                    <div class="product-details-img mr-20 product-details-tab">
+                        <div id="gallery" class="product-dec-slider-2">
+                            @foreach($product->images as $key => $image)
+                                <a data-image="{{ asset($image->url) }}" data-zoom-image="{{ asset($image->url) }}">
+                                    <img src="{{ asset($image->url) }}" alt="{{ $product->name }}">
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="zoompro-wrap zoompro-2 pl-20">
+                            <div class="zoompro-border zoompro-span">
+                                <img class="zoompro" src="{{ asset($image->url) }}" data-zoom-image="{{ asset($image->url) }}" alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-lg-5 col-md-12">
+                    <div class="product-details-content">
+                        <h2>{{ $product->name }}</h2>
+                        <div class="product-details-price">
+                            <span>{{ FormatCurrencyHelper::formatCurrency($product->selling_price ?? $product->original_price) }}</span>
+                            @if($product->selling_price)
+                                <span class="old">{{ FormatCurrencyHelper::formatCurrency($product->original_price) }}</span>
+                            @endif
+                        </div>
+
+                        <p>{!! $product->description !!}</p>
+
+                        <livewire:client.cart.add-to-cart :productId="$product->id" />
+
+                        <div class="pro-details-meta">
+                            <span>{{ __('Danh mục: ') }}</span>
+                            <ul>
+                                <li><x-link to="">{{ $product->category->name }}</x-link></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="single-product-main-area">
-        <div class="container container-default custom-area">
-            <div class="row">
-                <div class="col-lg-5 col-custom" wire:ignore>
-                    <div class="product-details-img horizontal-tab">
-                        <div class="product-slider popup-gallery product-details_slider" data-slick-options='{
-                                    "slidesToShow": 1,
-                                    "arrows": false,
-                                    "fade": true,
-                                    "draggable": false,
-                                    "swipe": false,
-                                    "asNavFor": ".pd-slider-nav"
-                                    }'>
-                            @foreach ($productImages as $productImage)
-                                <div class="single-image border">
-                                    <a href="{{ isset($productImage) ? asset($productImage->productImage) : asset('client/assets/images/default.png') }}">
-                                        <img src="{{ isset($productImage) ? asset($productImage->productImage) : asset('client/assets/images/default.png') }}" alt="Product">
-                                    </a>
-                                </div>
-                            @endforeach
 
-                            @if(! $productImages->count())
-                                <div class="single-image border">
-                                    <a href="{{ asset('client/assets/images/default.png') }}">
-                                        <img src="{{ asset('client/assets/images/default.png') }}" alt="Product">
-                                    </a>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="pd-slider-nav product-slider" data-slick-options='{
-                                    "slidesToShow": 4,
-                                    "asNavFor": ".product-details_slider",
-                                    "focusOnSelect": true,
-                                    "arrows" : false,
-                                    "spaceBetween": 30,
-                                    "vertical" : false
-                                    }' data-slick-responsive='[
-                                        {"breakpoint":1501, "settings": {"slidesToShow": 4}},
-                                        {"breakpoint":1200, "settings": {"slidesToShow": 4}},
-                                        {"breakpoint":992, "settings": {"slidesToShow": 4}},
-                                        {"breakpoint":575, "settings": {"slidesToShow": 3}}
-                                    ]'>
-                            @foreach ($productImages as $productImage)
-                                <div class="single-thumb border">
-                                    <img src="{{ asset($productImage->productImage) }}" alt="Product Thumnail">
-                                </div>
-                            @endforeach
-
-                            @if(! $productImages->count())
-                                <div class="single-thumb border">
-                                    <img src="{{ asset('client/assets/images/default.png') }}" alt="Product Thumnail">
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-custom">
-                    <div class="product-summery position-relative">
-                        <div class="product-head mb-3">
-                            <h2 class="product-title">{{ $productName }}</h2>
-                        </div>
-
-                        <div class="price-box mb-2">
-                            <span class="regular-price">{{ number_format($sellingPrice, 0, '.', '.') }} VNĐ</span>
-                            <span class="old-price"><del>{{ number_format($originalPrice, 0, '.', '.') }} VNĐ</del></span>
-                        </div>
-
-                        <div class="sku mb-3">
-                            <span>
-                                @if ($stock === "inStock")
-                                    <strong class="text-success">Còn hàng</strong>
-                                @else
-                                    <strong class="text-danger">Hết hàng</strong>
-                                @endif
-                            </span>
-                        </div>
-
-                        <div class="sku mb-3">
-                            <span>Danh mục: {{ $category }}</span>
-                        </div>
-                        <p class="desc-content mb-5">{{ $description }}</p>
-
-                        <div>
-                            @include('client.components.alerts')
-                        </div>
-
-                        @if ($stock !== "outStock")
-                            <div class="quantity-with_btn mb-4">
-                                <div class="quantity">
-                                    <div class="cart-plus-minus">
-                                        <input readonly wire:model="quantity" value="{{ $quantity }}"
-                                               class="cart-plus-minus-box">
-                                        <div wire:click="decQuantity" class="dec qtybutton">-</div>
-                                        <div wire:click="incQuantity" class="inc qtybutton">+</div>
-                                    </div>
-                                </div>
-                                <div class="add-to_cart">
-                                    <button wire:click.prevent="addToCart({{ $productId }})"
-                                            class="btn obrien-button primary-btn">Thêm
-                                        vào
-                                        giỏ
-                                    </button>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div>
+        <livewire:client.product.related-product
+                wire:key="relatedProduct"
+                :productId="$product->id"
+                :categoryId="$product->category->id" />
     </div>
 </div>
 
-<livewire:client.product.random-product></livewire:client.product.random-product>

@@ -2,27 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderProduct extends Model
 {
-    use HasFactory;
+    protected $table = 'order_product';
 
     protected $fillable = [
-        'orderId',
-        'productId',
         'quantity',
-        'purchasePrice',
+        'purchase_price',
+        'order_id',
+        'product_id',
     ];
 
-    public function order()
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'orderId');
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
-    public function products()
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'productId');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

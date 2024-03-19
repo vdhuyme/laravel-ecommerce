@@ -2,99 +2,88 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
+use App\Helpers\GenerateSlug;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductImage;
-use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class CreatePage extends Component
 {
     use WithFileUploads;
+    use LivewireAlert;
 
-    public $productName;
+    #[Validate('required|string|min:3|max:120')]
+    public string $name = '';
 
-    public $description;
+    #[Validate('required|string')]
+    public string $description = '';
 
-    public $productStatus;
+    #[Validate('required|in:active,draft,archived')]
+    public string $status = '';
 
-    public $featuredProduct;
+    #[Validate('nullable|in:1,0')]
+    public string $isFeatured = '';
 
-    public $productSlug;
+    #[Validate('nullable|string')]
+    public string $slug;
 
-    public $metaTitle;
+    #[Validate('required|numeric|min:1|max:10000000000')]
+    public int|float $originalPrice;
 
-    public $metaDescription;
+    #[Validate('nullable|numeric|min:1|max:10000000000|lte:originalPrice')]
+    public int|float $sellingPrice;
 
-    public $metaKey;
+    #[Validate('required|numeric')]
+    public int $categoryId;
 
-    public $originalPrice;
+    #[Validate('nullable')]
+    public mixed $images = [];
 
-    public $sellingPrice;
-
-    public $stock;
-
-    public $productImages = [];
-
-    public $categoryId;
-
-    protected $rules = [
-        'productImages.*' => 'image',
-        'productName' => 'required|max:255',
-        'description' => 'required',
-        'productStatus' => 'required|in:published,unPublished',
-        'featuredProduct' => 'required|in:yes,no',
-        'productSlug' => 'required|max:255',
-        'metaTitle' => 'max:255',
-        'metaDescription' => 'max:255',
-        'metaKey' => 'max:255',
-        'categoryId' => 'required',
-        'originalPrice' => 'required',
-        'sellingPrice' => 'required',
-        'stock' => 'required|in:inStock,outStock',
-    ];
-
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
-    public function storeProduct()
+    public function store(): void
     {
         $validatedData = $this->validate();
-        $validatedData['categoryId'] = $this->categoryId;
-        $validatedData['originalPrice'] = str_replace('.', '', $this->originalPrice);
-        $validatedData['sellingPrice'] = str_replace('.', '', $this->sellingPrice);
-        $product = Product::create($validatedData);
-        $productId = $product->id;
-        foreach ($this->productImages as $image) {
-            $this->productImages = $image->store('upload');
-            ProductImage::create([
-                'productImage' => $this->productImages,
-                'productId' => $productId,
-            ]);
+        $validatedData['category_id'] = $this->categoryId;
+        $validatedData['original_price'] = $this->originalPrice;
+        $validatedData['selling_price'] = $this->sellingPrice;
+        $validatedData['is_featured'] = $this->isFeatured;
+
+        if (empty($this->slug)) {
+            $validatedData['slug'] = GenerateSlug::generate($this->name);
         }
 
-        $this->reset();
-        session()->flash('success', 'Create new product successfully.');
-        return redirect()->route('products');
+        $product = Product::create($validatedData);
+
+        if ($this->images) {
+            $imageData = [];
+
+            foreach ($this->images as $image) {
+                $url = $image->store('/upload');
+                $imageData[] = ['url' => $url];
+            }
+
+            $product->images()->createMany($imageData);
+        }
+
+        $this->alert('success', trans('Thêm sản phẩm mới thành công'));
+
+        $this->redirect(IndexPage::class, navigate: true);
     }
 
-    public function generateSlug()
+    #[Layout('admin.layouts.app')]
+    public function render(): View
     {
-        $this->productSlug = Str::slug($this->productName);
-    }
-
-    public function render()
-    {
-        $categories = Category::orderBy('created_at', 'desc')->get();
+        $categories = Category::orderByDesc('created_at')
+            ->get(['id', 'name'])
+            ->pluck('name', 'id')
+            ->toArray();
 
         return view('livewire.admin.product.create-page', [
             'categories' => $categories
-        ])
-            ->extends('admin.layouts.app')
-            ->section('content');
+        ]);
     }
 }

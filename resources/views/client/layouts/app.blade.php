@@ -1,34 +1,38 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('metaTitle', 'Vie Fruits')</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="@yield('metaDes')">
-    <meta name="keywords" content="@yield('metaKey')">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('client/assets/images/favicon.ico') }}">
+    <title>{{ config('app.name') ?? __('Thương mại điện tử') }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    @include('client.layouts.css')
+    <link rel="stylesheet" href="{{ asset('assets/client/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/client/css/icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/client/css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/client/css/style.css') }}">
+    @livewireStyles
 </head>
 
 <body>
+    <x-client.header />
 
-    <div class="home-wrapper home-2">
-        @include('client.layouts.header')
+    {{ $slot }}
 
-        @yield('content')
+    <x-client.footer />
 
-        @include('client.layouts.footer')
-    </div>
-
-    <a class="scroll-to-top" href="#">
-        <i class="ion-chevron-up"></i>
-    </a>
-
-    @include('client.layouts.javascript')
+    <x-livewire-alert::scripts />
+    <script src="{{ asset('assets/admin/js/sweetalert2@11.js') }}"></script>
+    <script src="{{ asset('assets/client/js/vendor/modernizr-3.11.7.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/vendor/jquery-v3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/vendor/jquery-migrate-v3.3.2.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/vendor/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/client/js/main.js') }}"></script>
+    @stack('scripts')
+    @livewireScripts
 </body>
 
 </html>

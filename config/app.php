@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('LOCALE', 'vi'),
 
     /*
     |--------------------------------------------------------------------------
@@ -210,7 +210,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'FormatCurrencyHelper' => App\Helpers\FormatCurrencyHelper::class,
     ])->toArray(),
 
 ];
